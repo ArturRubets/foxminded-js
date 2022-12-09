@@ -2,17 +2,17 @@ const menu = document.querySelector('.menu');
 const foods = document.querySelectorAll('.food');
 const activeMenuItem = menu.querySelector('.active-menu-item');
 
-function selectMenu(menuItem) {
-  Array.from(menu.children).forEach((element) => {
+const selectMenu = (menuItem) => {
+  [...menu.children].forEach((element) => {
     if (element === menuItem) {
       element.classList.add('active-menu-item');
     } else {
       element.classList.remove('active-menu-item');
     }
   });
-}
+};
 
-function displayFood(menuItem) {
+const displayFood = (menuItem) => {
   const category = menuItem.textContent.toUpperCase();
 
   foods.forEach((element) => {
@@ -25,7 +25,7 @@ function displayFood(menuItem) {
       element.classList.remove('view');
     }
   });
-}
+};
 
 menu.addEventListener('click', (e) => {
   if (e.target.tagName === 'LI') {

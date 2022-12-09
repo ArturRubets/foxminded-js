@@ -1,3 +1,170 @@
+/* Variables */
+/* Animations */
+@keyframes opacity {
+  from {
+    opacity: 0;
+  }
+}
+/* General styles */
+* {
+  box-sizing: border-box;
+}
 
+html,
+body {
+  width: 100%;
+}
+
+html {
+  font-family: helvetica, arial, sans-serif;
+  font-size: 10px;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  padding: 1.5rem 0;
+}
+
+h1,
+h2 {
+  margin: 0;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 800px;
+  padding: 0 1.5rem;
+  width: 100%;
+}
+
+/* Header section */
+header .container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  padding-bottom: 3rem;
+  padding-top: 3rem;
+}
+header h1 {
+  color: #152942;
+  font-size: 3rem;
+  letter-spacing: 0.1em;
+  position: relative;
+  text-align: center;
+}
+header h1::after {
+  background-color: #bd9e62;
+  bottom: -0.3em;
+  content: "";
+  height: 2px;
+  left: 50%;
+  position: absolute;
+  transform: translateX(-50%);
+  width: 40%;
+}
+header .menu {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+header .active-menu-item,
+header li:hover {
+  background-color: #bd9e62;
+  color: #fff;
+}
+header li {
+  border-radius: 3px;
+  border: 2px solid #bd9e62;
+  color: #bd9e62;
+  cursor: pointer;
+  font-size: 1.5rem;
+  padding: 0.4rem 0.7rem;
+  user-select: none;
+}
+
+/* Main section */
+section .food-container {
+  display: grid;
+  gap: 3rem 2rem;
+  grid-template-columns: repeat(2, 1fr);
+}
+@media screen and (max-width: 768px) {
+  section .food-container {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+}
+section .food {
+  display: none;
+  font-size: 1.2rem;
+  gap: 1.2rem;
+  max-width: 500px;
+  opacity: 0;
+  width: 100%;
+}
+section .food .image-container {
+  background-color: #bd9e62;
+  border-radius: 3px;
+  border: 2px solid #bd9e62;
+  height: 100px;
+  max-width: 40%;
+  min-width: 40%;
+}
+section .food img {
+  border-radius: 3px;
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+section .food .description-header {
+  display: flex;
+  justify-content: space-between;
+  letter-spacing: 0.1em;
+  padding-right: 0.3rem;
+  position: relative;
+}
+@media screen and (max-width: 425px) {
+  section .food .description-header {
+    padding-right: 0;
+  }
+}
+section .food .description-header::after {
+  border-top: 0.5px dotted #152942;
+  bottom: -0.4em;
+  content: "";
+  position: absolute;
+  width: 100%;
+}
+section .food h2 {
+  color: #152942;
+  font-size: inherit;
+  line-height: 1.3;
+  word-break: break-word;
+}
+section .food span {
+  color: #bd9e62;
+}
+section .food p {
+  color: #8d94a2;
+  font-size: 1.3rem;
+  line-height: 1.3;
+}
+section .view {
+  animation: 300ms ease-in-out opacity;
+  display: flex;
+  opacity: 1;
+}
 
 /*# sourceMappingURL=main.css.map */

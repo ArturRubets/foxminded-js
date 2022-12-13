@@ -26,6 +26,6 @@ const bubbleSort = (arr) => {
   return arr;
 };
 
-const arr = [243, 45, 23, 356, 3, 5346, 35, 5];
-const sortedArr = bubbleSort(arr);
-console.log(sortedArr);
+const arr1 = [243, 45, 23, 356, 3, 5346, 35, 5];
+const sortedArr1 = bubbleSort(arr1);
+console.log(sortedArr1);

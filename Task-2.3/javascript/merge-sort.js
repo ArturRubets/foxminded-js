@@ -69,7 +69,6 @@ const mergeSort = (arr, l, r) => {
   merge(arr, l, m, r);
 };
 
-const arr = [12, 11, 13, 5, 6, 7];
-
-mergeSort(arr, 0, arr.length - 1);
-console.log(arr);
+const arr3 = [12, 11, 13, 5, 6, 7];
+mergeSort(arr3, 0, arr3.length - 1);
+console.log(arr3);

@@ -1,12 +1,12 @@
 // Javascript program for implementation of selection sort
 
-const swap = (arr, idx1, idx2) => {
-  const temp = arr[idx1];
-  arr[idx1] = arr[idx2];
-  arr[idx2] = temp;
-};
-
 const selectionSort = (arr, n) => {
+  const swap = (arr, idx1, idx2) => {
+    const temp = arr[idx1];
+    arr[idx1] = arr[idx2];
+    arr[idx2] = temp;
+  };
+
   let i, j, minIdx;
 
   // One by one move boundary of unsorted subarray
@@ -28,6 +28,6 @@ const selectionSort = (arr, n) => {
   return arr;
 };
 
-const arr = [64, 25, 12, -22, 11];
-const sortedArr = selectionSort(arr, arr.length);
-console.log(sortedArr);
+const arr5 = [64, 25, 12, -22, 11];
+const sortedArr5 = selectionSort(arr5, arr5.length);
+console.log(sortedArr5);

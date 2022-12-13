@@ -20,6 +20,6 @@ const insertionSort = (arr, n) => {
   return arr;
 };
 
-const arr = [12, 11, 13, 5, 6];
-const sortedArr = insertionSort(arr, arr.length);
-console.log(sortedArr);
+const arr2 = [12, 11, 13, 5, 6];
+const sortedArr2 = insertionSort(arr2, arr2.length);
+console.log(sortedArr2);

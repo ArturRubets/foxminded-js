@@ -1,18 +1,18 @@
 // Javascript implementation of QuickSort
 
-// A utility function to swap two elements
-const swap = (arr, i, j) => {
-  const temp = arr[i];
-  arr[i] = arr[j];
-  arr[j] = temp;
-};
-
 /* This function takes last element as pivot, places
 the pivot element at its correct position in sorted
 array, and places all smaller (smaller than pivot)
 to left of pivot and all greater elements to right
 of pivot */
 const partition = (arr, low, high) => {
+  // A utility function to swap two elements
+  const swap = (arr, i, j) => {
+    const temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
+  };
+
   // pivot
   const pivot = arr[high];
 
@@ -53,6 +53,6 @@ const quickSort = (arr, low, high) => {
   }
 };
 
-const arr = [10, 7, 8, 9, 1, 5];
-quickSort(arr, 0, arr.length - 1);
-console.log(arr);
+const arr4 = [10, 7, 8, 9, 1, 5];
+quickSort(arr4, 0, arr4.length - 1);
+console.log(arr4);

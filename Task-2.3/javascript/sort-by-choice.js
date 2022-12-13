@@ -30,4 +30,4 @@ const selectionSort = (arr, n) => {
 
 const arr5 = [64, 25, 12, -22, 11];
 const sortedArr5 = selectionSort(arr5, arr5.length);
-console.log(sortedArr5);
+console.log('sort by choice sorting', sortedArr5);

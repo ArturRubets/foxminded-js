@@ -55,4 +55,4 @@ const quickSort = (arr, low, high) => {
 
 const arr4 = [10, 7, 8, 9, 1, 5];
 quickSort(arr4, 0, arr4.length - 1);
-console.log(arr4);
+console.log('quicksort sorting', arr4);

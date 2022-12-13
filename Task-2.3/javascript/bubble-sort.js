@@ -28,4 +28,4 @@ const bubbleSort = (arr) => {
 
 const arr1 = [243, 45, 23, 356, 3, 5346, 35, 5];
 const sortedArr1 = bubbleSort(arr1);
-console.log(sortedArr1);
+console.log('bubble sorting', sortedArr1);

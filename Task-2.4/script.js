@@ -22,40 +22,29 @@ class Validator {
     element.setCustomValidity('');
   }
 
-  containSpaces(targetElement, textError) {
-    if (targetElement.value.includes(' ')) {
-      this.showError(textError, targetElement);
-      return true;
-    }
-    this.hideError(targetElement);
-    return false;
+  containSpaces(text) {
+    return text.includes(' ');
   }
 
-  lengthCharacters(targetElement, textError, maxLength) {
-    if (targetElement.value.length < maxLength) {
-      this.showError(textError, targetElement);
-      return true;
-    }
-    this.hideError(targetElement);
-    return false;
+  lengthLessThan(text, maxLength) {
+    return text.length < maxLength;
   }
 }
 
 class FirstNameValidator extends Validator {
+  maxLength = 3;
+
   validate(firstNameElement) {
-    if (
-      this.containSpaces(firstNameElement, 'The name must not contain spaces')
-    ) {
+    if (this.containSpaces(firstNameElement.value)) {
+      this.showError('The name must not contain spaces', firstNameElement);
       return;
     }
 
-    if (
-      this.lengthCharacters(
-        firstNameElement,
-        'The name contains less than 3 characters',
-        3
-      )
-    ) {
+    if (this.lengthLessThan(firstNameElement.value, this.maxLength)) {
+      this.showError(
+        `The name contains less than ${this.maxLength} characters`,
+        firstNameElement
+      );
       return;
     }
 
@@ -65,7 +54,8 @@ class FirstNameValidator extends Validator {
 
 class EmailValidator extends Validator {
   validate(emailElement) {
-    if (this.containSpaces(emailElement, 'The email must not contain spaces')) {
+    if (this.containSpaces(emailElement.value)) {
+      this.showError('The email must not contain spaces', emailElement);
       return;
     }
 
@@ -82,24 +72,20 @@ class PasswordValidator extends Validator {
   maxLength = 6;
 
   validate(passwordElement) {
-    if (
-      this.containSpaces(
-        passwordElement,
-        'The password must not contain spaces'
-      )
-    ) {
+    if (this.containSpaces(passwordElement.value)) {
+      this.showError('The password must not contain spaces', passwordElement);
       return;
     }
 
-    if (
-      this.lengthCharacters(
-        passwordElement,
+    if (this.lengthLessThan(passwordElement.value, this.maxLength)) {
+      this.showError(
         `The password contains less than ${this.maxLength} characters`,
-        this.maxLength
-      )
-    ) {
+        passwordElement
+      );
       return;
     }
+
+    this.hideError(passwordElement);
   }
 }
 
@@ -109,6 +95,7 @@ class ConfirmPasswordValidator extends Validator {
       this.showError('Passwords must be the same', confirmPasswordElement);
       return;
     }
+
     this.hideError(confirmPasswordElement);
   }
 }

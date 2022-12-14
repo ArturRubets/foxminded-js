@@ -12,15 +12,46 @@ income.oninput = changeIncome;
 changeIncome();
 
 class Validator {
-  firstName(text, element) {
-    if (this.containSpaces(text, element, 'The name must not contain spaces')) {
+  showError(textError, element) {
+    document.querySelector(`.${element.id}.error`).textContent = textError;
+    element.setCustomValidity(textError);
+  }
+
+  hideError(element) {
+    document.querySelector(`.${element.id}.error`).textContent = '';
+    element.setCustomValidity('');
+  }
+
+  containSpaces(targetElement, textError) {
+    if (targetElement.value.includes(' ')) {
+      this.showError(textError, targetElement);
+      return true;
+    }
+    this.hideError(targetElement);
+    return false;
+  }
+
+  lengthCharacters(targetElement, textError, maxLength) {
+    if (targetElement.value.length < maxLength) {
+      this.showError(textError, targetElement);
+      return true;
+    }
+    this.hideError(targetElement);
+    return false;
+  }
+}
+
+class FirstNameValidator extends Validator {
+  validate(firstNameElement) {
+    if (
+      this.containSpaces(firstNameElement, 'The name must not contain spaces')
+    ) {
       return;
     }
 
     if (
       this.lengthCharacters(
-        text,
-        element,
+        firstNameElement,
         'The name contains less than 3 characters',
         3
       )
@@ -28,93 +59,77 @@ class Validator {
       return;
     }
 
-    this.hideError(element);
+    this.hideError(firstNameElement);
   }
+}
 
-  email(text, element) {
+class EmailValidator extends Validator {
+  validate(emailElement) {
+    if (this.containSpaces(emailElement, 'The email must not contain spaces')) {
+      return;
+    }
+
+    if (emailElement.validity.typeMismatch) {
+      this.showError('Incorrect email', emailElement);
+      return;
+    }
+
+    this.hideError(emailElement);
+  }
+}
+
+class PasswordValidator extends Validator {
+  maxLength = 6;
+
+  validate(passwordElement) {
     if (
-      this.containSpaces(text, element, 'The email must not contain spaces')
+      this.containSpaces(
+        passwordElement,
+        'The password must not contain spaces'
+      )
     ) {
       return;
     }
 
-    if (element.validity.typeMismatch) {
-      this.showError('Incorrect email', element);
-      return;
-    }
-
-    this.hideError(element);
-  }
-
-  password(text, element) {
-    if (
-      this.containSpaces(text, element, 'The password must not contain spaces')
-    ) {
-      return;
-    }
-
-    const maxLength = 6;
     if (
       this.lengthCharacters(
-        text,
-        element,
-        `The password contains less than ${maxLength} characters`,
-        maxLength
+        passwordElement,
+        `The password contains less than ${this.maxLength} characters`,
+        this.maxLength
       )
     ) {
       return;
     }
   }
+}
 
-  confirmPassword(password, confirmPassword, element) {
-    if (password !== confirmPassword) {
-      this.showError('Passwords must be the same', element);
+class ConfirmPasswordValidator extends Validator {
+  validate(passwordElement, confirmPasswordElement) {
+    if (passwordElement.value !== confirmPasswordElement.value) {
+      this.showError('Passwords must be the same', confirmPasswordElement);
       return;
     }
-    this.hideError(element);
-  }
-
-  showError(error, element) {
-    document.querySelector(`.${element.id}.error`).textContent = error;
-  }
-
-  hideError(element) {
-    document.querySelector(`.${element.id}.error`).textContent = '';
-  }
-
-  containSpaces(text, element, textError) {
-    if (text.includes(' ')) {
-      this.showError(textError, element);
-      return true;
-    }
-    this.hideError(element);
-    return false;
-  }
-
-  lengthCharacters(text, element, textError, maxLength) {
-    if (text.length < maxLength) {
-      this.showError(textError, element);
-      return true;
-    }
-    this.hideError(element);
-    return false;
+    this.hideError(confirmPasswordElement);
   }
 }
 
-const validator = new Validator();
+const firstNameValidator = new FirstNameValidator();
+const emailValidator = new EmailValidator();
+const passwordValidator = new PasswordValidator();
+const confirmPasswordValidator = new ConfirmPasswordValidator();
 
 firstName.addEventListener('input', () => {
-  validator.firstName(firstName.value, firstName);
+  firstNameValidator.validate(firstName);
 });
 
 email.addEventListener('input', () => {
-  validator.email(email.value, email);
+  emailValidator.validate(email);
 });
 
 pwd.addEventListener('input', () => {
-  validator.password(pwd.value, pwd);
+  passwordValidator.validate(pwd);
 });
 
 cpwd.addEventListener('input', () => {
-  validator.confirmPassword(pwd.value, cpwd.value, cpwd);
+  confirmPasswordValidator.validate(pwd, cpwd);
 });

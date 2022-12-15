@@ -1,0 +1,193 @@
+/* || General styles */
+
+$background-page-color: #548093;
+$border: 1px solid #ccc;
+$dark-green: #069475;
+$dark-grey: #666;
+$font-family: 'Roboto', sans-serif;
+$green: #00bb93;
+$grey: #ccc;
+$header-font-size: 1.5em;
+$label-font-size: 1.2em;
+$light-grey: #eff0f1;
+$text-font-size: 1em;
+$white: #fdfdfd;
+
+html {
+  background-color: $background-page-color;
+  font-family: $font-family;
+}
+
+h1,
+p {
+  margin: 0;
+}
+
+/* || Form */
+
+form {
+  background-color: $white;
+  border-radius: 10px;
+  margin: 2em auto;
+  width: 700px;
+}
+
+/* || Header */
+
+h1 {
+  background-color: $light-grey;
+  border-bottom: $border;
+  border-radius: inherit;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  color: $dark-grey;
+  font-size: $header-font-size;
+  font-weight: 500;
+  line-height: 3;
+  text-align: center;
+}
+
+/* || Data input */
+
+*:focus {
+  outline-color: $dark-grey;
+}
+
+.inputs-container {
+  display: grid;
+  gap: 1em 0.8em;
+  grid-template-columns: repeat(2, 50%);
+  padding: 1em 2em;
+}
+
+.two-columns {
+  grid-column: 1 / span 2;
+}
+
+label {
+  color: $green;
+  display: block;
+  font-size: $label-font-size;
+  margin-bottom: 0.3em;
+}
+
+input,
+select,
+textarea {
+  border-radius: 3px;
+  border: $border;
+  box-sizing: border-box;
+  font-family: $font-family;
+  font-size: $text-font-size;
+  padding: 0.3em 0.5em;
+  width: 100%;
+}
+
+input {
+  &::placeholder {
+    color: $grey;
+  }
+  &[type='file'] {
+    border: 0;
+    color: $dark-grey;
+    padding: 0;
+  }
+  &::file-selector-button {
+    background-color: $white;
+    border-radius: 3px;
+    border: $border;
+  }
+}
+
+textarea {
+  max-height: 300px;
+  min-height: 100px;
+  resize: vertical;
+}
+
+.checkbox-radio-wrapper {
+  p {
+    color: $green;
+    font-size: $label-font-size;
+    margin-bottom: 0.3em;
+  }
+
+  label {
+    color: $dark-grey;
+    display: inline-block;
+    font-size: $text-font-size;
+  }
+
+  input {
+    vertical-align: text-top;
+    width: initial;
+  }
+}
+
+.income-wrapper {
+  input {
+    padding: 0;
+    vertical-align: middle;
+    width: 79%;
+  }
+
+  > span {
+    background-color: $green;
+    border-radius: 5px;
+    color: $white;
+    font-size: $label-font-size;
+    padding: 0.3em;
+  }
+}
+
+/* Chrome, Safari, Edge, Opera */
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+  appearance: none;
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+/* || Submit */
+
+form > section:last-child {
+  background-color: $light-grey;
+  border-top: $border;
+  border-radius: inherit;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  padding: 0.7em 2em;
+  text-align: right;
+}
+
+button {
+  background-color: $green;
+  border-radius: 5px;
+  border: 0;
+  color: $white;
+  cursor: pointer;
+  font-size: $text-font-size;
+  padding: 0.6em 1em;
+  &:hover {
+    background-color: $dark-green;
+  }
+  &:active {
+    background-color: $green;
+    box-shadow: 0.13em 0.13em 0.31em $grey;
+  }
+}
+
+/* Error */
+
+.error:not(:empty) {
+  color: red;
+  display: inline-block;
+  font-size: 0.8rem;
+  padding-top: 0.5rem;
+}

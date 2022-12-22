@@ -4,8 +4,8 @@ $body-color: #4299e1;
 $border-radius: 5px;
 $font-family: helvetica, arial, sans-serif;
 $mobile-l-width: 425px;
-$weather-current-color: #1a202c;
-$weather-forecast-color: #2d3748;
+$weather-current-color: rgba(26, 32, 44, 0.8);
+$weather-forecast-color: rgba(45, 55, 72, 0.8);
 
 /* General styles */
 
@@ -39,10 +39,6 @@ body {
   max-width: 350px;
   padding: 2rem 1.5rem;
   width: 100%;
-}
-
-h1 {
-  text-align: center;
 }
 
 /* Search container */

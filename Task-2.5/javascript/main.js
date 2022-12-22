@@ -278,15 +278,15 @@ const initialWeatherSearch = (weatherClient) => {
   });
 };
 
-function getRandomImageByContext(contextText) {
+const getRandomImageByContext = (contextText) => {
   return `https://source.unsplash.com/1600x900/?${contextText}`;
-}
+};
 
-function setBackground(contextText) {
+const setBackground = (searchImage) => {
   document.body.style.backgroundImage = `url("${getRandomImageByContext(
-    contextText
+    searchImage
   )}")`;
-}
+};
 
 /* Program implementation */
 

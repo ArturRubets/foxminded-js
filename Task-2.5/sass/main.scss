@@ -79,12 +79,13 @@ body {
   }
 
   .selected-input {
+    color: white;
     display: none;
     margin-top: 0.5rem;
+    mix-blend-mode: difference;
   }
 
   .selected-text {
-    color: $weather-current-color;
     font-weight: bold;
   }
 }

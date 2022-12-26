@@ -13,12 +13,6 @@ $weather-forecast-color: rgba(45, 55, 72, 0.8);
   box-sizing: border-box;
 }
 
-html,
-body {
-  height: 100%;
-  width: 100%;
-}
-
 html {
   font-family: $font-family;
   font-size: 10px;
@@ -29,6 +23,7 @@ body {
   font-size: 1.4rem;
   margin: 0;
   min-width: 320px;
+  position: relative;
   @media screen and (max-width: $mobile-l-width) {
     font-size: 1.3rem;
   }

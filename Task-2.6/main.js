@@ -14,33 +14,16 @@ const nameTodoListKey = 'nameTodoListKey';
 
 /* Define classes */
 
-class LocalStorage {
-  static getItem(key) {
-    return localStorage.getItem(key);
-  }
-
-  static setItem(key, item) {
-    localStorage.setItem(key, item);
-  }
-
-  static removeItem(key) {
-    localStorage.removeItem(key);
-  }
-}
-
 class TodoStorage {
   static todoItemKey = 'todoItemKey';
 
   static get() {
-    const items = JSON.parse(LocalStorage.getItem(this.todoItemKey));
-    if (!items) {
-      return [];
-    }
-    return items.sort((a, b) => a.id - b.id);
+    const items = JSON.parse(localStorage.getItem(this.todoItemKey));
+    return items ? items.sort((a, b) => a.id - b.id) : [];
   }
 
   static set(todo) {
-    LocalStorage.setItem(
+    localStorage.setItem(
       this.todoItemKey,
       JSON.stringify([...this.get(), todo])
     );
@@ -48,25 +31,25 @@ class TodoStorage {
 
   static replaceContent(todo, description) {
     const all = this.get();
-    const founded = all.find((t) => t.id === todo.id);
+    const founded = all.find(({ id }) => id === todo.id);
     founded.description = description;
     this.replaceAll(all);
   }
 
   static replaceAll(todos) {
-    LocalStorage.setItem(this.todoItemKey, JSON.stringify(todos));
+    localStorage.setItem(this.todoItemKey, JSON.stringify(todos));
   }
 
   static remove(todoId) {
     const all = this.get();
-    const filtered = all.filter((todo) => todo.id != todoId);
-    if (filtered.length != all.length) {
+    const filtered = all.filter(({ id }) => id !== todoId);
+    if (filtered.length !== all.length) {
       this.replaceAll(filtered);
     }
   }
 
   static clear() {
-    LocalStorage.removeItem(this.todoItemKey);
+    localStorage.removeItem(this.todoItemKey);
   }
 }
 
@@ -89,7 +72,7 @@ const debounce =
 const inputNameTodoList = () => {
   const nameTodoList = header.value.trim();
   if (nameTodoList) {
-    LocalStorage.setItem(nameTodoListKey, nameTodoList);
+    localStorage.setItem(nameTodoListKey, nameTodoList);
   }
 };
 
@@ -106,6 +89,7 @@ const handleButtonAddTodo = () => {
     addTodoInput.style.height = 'auto';
 
     checkDisplayClearItemsButton();
+    listenTypingTodo();
   }
 };
 
@@ -177,7 +161,7 @@ const listenTypingTodo = () => {
   if (addTodoInput.value) {
     addTodoButton.textContent = 'Save';
   } else {
-    addTodoButton.textContent = 'Add';
+    addTodoButton.textContent = 'Enter';
   }
 };
 
@@ -192,11 +176,8 @@ const removeAllTodo = () => {
 };
 
 const checkDisplayClearItemsButton = () => {
-  if (todoContainer.innerHTML === '') {
-    clearItemsContainer.style.display = 'none';
-  } else {
-    clearItemsContainer.style.display = 'block';
-  }
+  clearItemsContainer.style.display =
+    todoContainer.innerHTML === '' ? 'none' : 'block';
 };
 
 /* Program implementation */
@@ -211,6 +192,6 @@ clearItemsButton.addEventListener('click', removeAllTodo);
 
 TodoStorage.get().forEach(displayTodo);
 
-header.value = LocalStorage.getItem(nameTodoListKey);
+header.value = localStorage.getItem(nameTodoListKey);
 
 checkDisplayClearItemsButton();

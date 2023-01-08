@@ -7,6 +7,8 @@ const inputSearchBar = document.querySelector('.search-bar');
 const buttonSearch = document.querySelector('.btn-icon-search');
 const main = document.querySelector('main');
 const container = document.querySelector('main .container');
+const divDarkMode = document.querySelector('.dark-mode-container');
+const body = document.querySelector('body');
 
 /* Define constants */
 
@@ -106,7 +108,7 @@ class CountryRepository {
     }
 
     return countries.filter((c) =>
-      c.countryName.toLowerCase().includes(this.filteredName)
+      c.countryName.toLowerCase().includes(this.filteredName.toLowerCase())
     );
   }
 
@@ -180,10 +182,16 @@ const closeDropdownMenuOutside = (targetEl) => {
 };
 
 const displayCards = (countries) => {
-  if (!countries || countries.length === 0) {
-    cards.innerHTML = '<p class="warning">No matches found</p>';
-    return;
-  }
+  const displayWarning = () => {
+    const p = document.createElement('p');
+    p.classList.add('warning');
+    p.textContent = 'No matches found';
+    container.append(p);
+  };
+
+  const removeWarning = () => {
+    container.querySelector('.warning')?.remove();
+  };
 
   const createCardHTML = (countryObj) => {
     return `
@@ -215,6 +223,15 @@ const displayCards = (countries) => {
       </div>
     `;
   };
+
+  removeWarning();
+  cards.style.display = 'grid';
+
+  if (!countries || countries.length === 0) {
+    displayWarning();
+    cards.style.display = 'none';
+    return;
+  }
 
   const cardsHTML = countries.map(createCardHTML).join('');
   cards.innerHTML = cardsHTML;
@@ -258,6 +275,18 @@ const toggleDisplay = (elements) => {
   });
 };
 
+const handleDarkMode = () => {
+  const span = divDarkMode.querySelector('span');
+
+  if (body.classList.contains('dark-mode')) {
+    body.classList.remove('dark-mode');
+    span.textContent = 'Dark Mode';
+  } else {
+    body.classList.add('dark-mode');
+    span.textContent = 'Light Mode';
+  }
+};
+
 /* Program implementation */
 
 let countryRepository;
@@ -294,3 +323,5 @@ inputSearchBar.addEventListener('keyup', (e) => {
 buttonSearch.addEventListener('click', () =>
   handleCountrySearch(inputSearchBar.value)
 );
+
+divDarkMode.addEventListener('click', handleDarkMode);

@@ -21,7 +21,7 @@ class Country {
   constructor(url, countryName, population, region, capital) {
     this.url = url;
     this.countryName = countryName;
-    this.population = population;
+    this.population = numberWithCommas(population);
     this.region = region;
     this.capital = capital;
   }
@@ -114,10 +114,14 @@ class CountryRepository {
     );
   }
 
+  sortByName(countries) {
+    return countries.sort((a, b) => a.countryName.localeCompare(b.countryName));
+  }
+
   getCountries() {
     const filteredFirst = this.filterByRegion(this.countries);
     const filteredSecond = this.filterByName(filteredFirst);
-    return filteredSecond;
+    return this.sortByName(filteredSecond);
   }
 
   setFilterName(name) {
@@ -160,6 +164,8 @@ class Loader {
 }
 
 /* Define functions */
+
+const numberWithCommas = (n) => n.toLocaleString('en-US');
 
 const debounce =
   (callback, delay, timeout = 0) =>

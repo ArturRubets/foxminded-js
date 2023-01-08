@@ -93,6 +93,7 @@ class CountryRepository {
   }
 
   filterByRegion(countries) {
+    // Do not apply filtering if this.filteredRegions is empty.
     if (this.filteredRegions.length === 0) {
       return countries;
     }
@@ -103,6 +104,7 @@ class CountryRepository {
   }
 
   filterByName(countries) {
+    // Do not apply filtering if this.filterByName is empty.
     if (!this.filterByName) {
       return countries;
     }

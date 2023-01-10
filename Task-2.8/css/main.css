@@ -48,7 +48,7 @@ p {
   width: 100%;
 }
 
-/* Header */
+/* Header section */
 header {
   min-width: 1000px;
 }
@@ -57,13 +57,14 @@ header {
     min-width: 0;
   }
 }
+
 @media screen and (max-width: 768px) {
-  header .logo img {
+  .header-top .logo img {
     height: 23px;
     width: 120px;
   }
 }
-header .header-top-container {
+.header-top .container {
   align-items: center;
   display: flex;
   gap: 2rem;
@@ -71,26 +72,26 @@ header .header-top-container {
   padding-top: 2rem;
 }
 @media screen and (max-width: 768px) {
-  header .header-top-container {
+  .header-top .container {
     flex-wrap: wrap;
     justify-content: space-between;
     padding: 1.5rem;
   }
 }
-header .search {
+.header-top .search {
   flex: 1;
 }
 @media screen and (max-width: 768px) {
-  header .search {
+  .header-top .search {
     flex: none;
     order: 3;
     width: 100%;
   }
 }
-header .search form {
+.header-top .search form {
   position: relative;
 }
-header .search input {
+.header-top .search input {
   border-radius: 4px;
   border: 1px solid #d0d0d0;
   height: 3rem;
@@ -98,10 +99,10 @@ header .search input {
   padding: 0 3.6rem 0 1.2rem;
   width: 100%;
 }
-header .search input::-webkit-input-placeholder {
+.header-top .search input::-webkit-input-placeholder {
   color: #ccc;
 }
-header .search button {
+.header-top .search button {
   background-color: transparent;
   bottom: 0;
   cursor: pointer;
@@ -111,49 +112,49 @@ header .search button {
   top: 0;
   width: 3.2rem;
 }
-header .search button:disabled {
+.header-top .search button:disabled {
   cursor: default;
 }
-header .search button:disabled #icon-search {
+.header-top .search button:disabled #icon-search {
   fill: rgba(204, 204, 204, 0.4);
 }
-header .search #icon-search {
+.header-top .search #icon-search {
   height: 1em;
   width: 1em;
 }
-header .phone {
+.header-top .phone {
   font-size: 1.8rem;
 }
 @media screen and (max-width: 768px) {
-  header .phone {
+  .header-top .phone {
     display: none;
   }
 }
-header .phone:not(:hover) #icon-phone {
+.header-top .phone:not(:hover) #icon-phone {
   fill: #ccc;
 }
-header .phone a,
-header .phone #icon-phone {
+.header-top .phone a,
+.header-top .phone #icon-phone {
   vertical-align: middle;
 }
-header .phone #icon-phone {
+.header-top .phone #icon-phone {
   height: 1.1em;
   margin-right: 0.2rem;
   transition: all 0.3s;
   width: 1.1em;
 }
-header .timetable {
+.header-top .timetable {
   display: inline-block;
   margin-left: 2.4rem;
   position: relative;
   text-align: left;
 }
 @media screen and (max-width: 768px) {
-  header .timetable {
+  .header-top .timetable {
     display: none;
   }
 }
-header .timetable #icon-clock {
+.header-top .timetable #icon-clock {
   fill: #ccc;
   height: 1.2em;
   left: -23px;
@@ -161,33 +162,33 @@ header .timetable #icon-clock {
   top: 0;
   width: 1.2em;
 }
-header .timetable .timetable-title {
+.header-top .timetable .timetable-title {
   font-size: 1.3rem;
   margin-bottom: 0.5rem;
 }
-header .timetable .timetable-text p {
+.header-top .timetable .timetable-text p {
   margin-bottom: 0.3rem;
 }
-header .timetable .timetable-text strong {
+.header-top .timetable .timetable-text strong {
   display: inline-block;
   min-width: 6.3rem;
 }
-header .basket .basket-link {
+.header-top .basket .basket-link {
   display: block;
 }
-header .basket .basket-icon {
+.header-top .basket .basket-icon {
   display: inline-block;
   position: relative;
   transition: all 0.15s;
 }
-header .basket #icon-basket-outline {
+.header-top .basket #icon-basket-outline {
   display: inline-block;
   font-size: inherit;
   height: 2.4em;
   vertical-align: middle;
   width: 2.4em;
 }
-header .basket .basket-items {
+.header-top .basket .basket-items {
   background: #ff671e;
   border-radius: 15px;
   color: white;
@@ -198,59 +199,67 @@ header .basket .basket-items {
   position: absolute;
   top: 8px;
 }
-header .basket .basket-contents {
+.header-top .basket .basket-contents {
   display: inline-block;
   margin-left: 1.2rem;
   vertical-align: middle;
 }
 @media screen and (max-width: 425px) {
-  header .basket .basket-contents {
+  .header-top .basket .basket-contents {
     display: none;
   }
 }
-header .basket .basket-title,
-header .basket .basket-value {
+.header-top .basket .basket-title,
+.header-top .basket .basket-value {
   color: black;
 }
-header .basket .basket-title {
+.header-top .basket .basket-title {
   color: black;
   font-size: 1.7rem;
   font-weight: bold;
   line-height: 1;
   margin-bottom: 0.4rem;
 }
-header .header-bottom {
+
+.header-bottom {
   background-color: black;
   color: white;
   font-size: 1.6rem;
   font-weight: bold;
 }
-@media screen and (max-width: 768px) {
-  header .header-bottom {
-    font-size: 1.4rem;
-  }
-}
-header .header-bottom-container {
+.header-bottom .container {
   padding: 0;
 }
-header .header-bottom-container ul {
+.header-bottom ul {
   display: flex;
   overflow-y: auto;
 }
-header .header-bottom-container li {
+.header-bottom li {
   text-align: center;
 }
 @media screen and (max-width: 768px) {
-  header .header-bottom-container li {
+  .header-bottom li {
     flex: 1;
   }
 }
-header .header-bottom-container a {
+.header-bottom a {
   color: inherit;
   display: block;
   line-height: 4rem;
   padding: 0 2.5rem;
   white-space: nowrap;
+}
+
+/* Main section */
+.promo .container {
+  padding-bottom: 2rem;
+  padding-top: 2rem;
+}
+.promo .catalog-title {
+  color: #ff671e;
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
 }
 
 /*# sourceMappingURL=main.css.map */

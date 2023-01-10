@@ -1,0 +1,242 @@
+/* Variables */
+
+$font-family: Roboto, arial, sans-serif;
+$mobile-l-width: 425px;
+$tablet-width: 768px;
+
+/* General styles */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: $font-family;
+  font-size: 10px;
+}
+
+body {
+  font-size: 1.4rem;
+  margin: 0;
+  min-width: 320px;
+}
+
+button,
+input {
+  border: 0;
+  // color: black; TODO: Потрібен чи ні для safari mobile?
+  font-family: inherit;
+  font-size: inherit;
+  padding: 0;
+}
+
+a {
+  color: #333;
+  text-decoration: none;
+}
+
+p {
+  margin: 0;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 1440px;
+  padding: 0 1.5rem;
+  width: 100%;
+}
+
+/* Header */
+
+header {
+  .header-desktop-container {
+    align-items: center;
+    display: flex;
+    gap: 2rem;
+    min-width: 1000px;
+    padding: 3rem 2rem;
+
+    @media screen and (max-width: $tablet-width) {
+      display: none;
+    }
+  }
+
+  .header-mobile-container {
+    display: none;
+    padding: 1.5rem;
+
+    @media screen and (max-width: $tablet-width) {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+  }
+
+  .header-top {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .search {
+    flex: 1;
+    width: 100%;
+
+    form {
+      position: relative;
+    }
+
+    input {
+      border-radius: 4px;
+      border: 1px solid #d0d0d0;
+      height: 3rem;
+      outline: none;
+      padding: 0 3.6rem 0 1.2rem;
+      width: 100%;
+
+      &::-webkit-input-placeholder {
+        color: #ccc;
+      }
+    }
+
+    button {
+      background-color: transparent;
+      bottom: 0;
+      cursor: pointer;
+      outline: none;
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 3.2rem;
+      width: 3.2rem;
+
+      &:disabled {
+        cursor: default;
+      }
+    }
+
+    #icon-search {
+      height: 1em;
+      width: 1em;
+    }
+
+    button:disabled #icon-search {
+      fill: rgba(204, 204, 204, 0.4);
+    }
+  }
+
+  .phone {
+    font-size: 1.8rem;
+
+    @media screen and (max-width: $tablet-width) {
+      display: none;
+    }
+
+    &:not(:hover) #icon-phone {
+      fill: #ccc;
+    }
+
+    a,
+    #icon-phone {
+      vertical-align: middle;
+    }
+
+    #icon-phone {
+      height: 1.1em;
+      transition: all 0.3s;
+      width: 1.1em;
+    }
+  }
+
+  .timetable {
+    display: inline-block;
+    margin-left: 24px;
+    position: relative;
+    text-align: left;
+
+    @media screen and (max-width: $tablet-width) {
+      display: none;
+    }
+
+    #icon-clock {
+      fill: #ccc;
+      height: 1.2em;
+      left: -23px;
+      position: absolute;
+      top: 0;
+      width: 1.2em;
+    }
+
+    .timetable-title {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .timetable-text {
+      p {
+        margin-bottom: 0.3rem;
+      }
+
+      strong {
+        display: inline-block;
+        min-width: 6.3rem;
+      }
+    }
+  }
+
+  .basket {
+    white-space: nowrap;
+
+    .basket-link {
+      display: block;
+    }
+
+    .basket-icon {
+      display: inline-block;
+      position: relative;
+      transition: all 0.15s; // TODO: Потрібно при зміні кількості покупок?
+    }
+
+    #icon-basket-outline {
+      display: inline-block;
+      font-size: inherit;
+      height: 2.4em;
+      vertical-align: middle;
+      width: 2.4em;
+    }
+
+    .basket-items {
+      background: #ff671e;
+      border-radius: 15px;
+      color: white;
+      font-size: 1rem;
+      left: -3px;
+      line-height: 1.3;
+      padding: 0.1rem 0.4rem;
+      position: absolute;
+      top: 8px;
+    }
+
+    .basket-contents {
+      display: inline-block;
+      vertical-align: middle;
+      margin-left: 1.2rem;
+
+      @media screen and (max-width: $mobile-l-width) {
+        display: none;
+      }
+    }
+
+    .basket-title,
+    .basket-value {
+      color: black;
+    }
+
+    .basket-title {
+      color: black;
+      font-size: 1.7rem;
+      font-weight: bold;
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+  }
+}

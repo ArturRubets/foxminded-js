@@ -40,36 +40,37 @@ p {
 }
 
 /* Header */
-header .header-desktop-container {
+@media screen and (max-width: 768px) {
+  header .logo img {
+    height: 23px;
+    width: 120px;
+  }
+}
+header .header-container {
   align-items: center;
   display: flex;
   gap: 2rem;
   min-width: 1000px;
-  padding: 3rem 2rem;
+  padding-bottom: 2rem;
+  padding-top: 2rem;
 }
 @media screen and (max-width: 768px) {
-  header .header-desktop-container {
-    display: none;
+  header .header-container {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    min-width: 0;
+    padding: 1.5rem;
   }
-}
-header .header-mobile-container {
-  display: none;
-  padding: 1.5rem;
-}
-@media screen and (max-width: 768px) {
-  header .header-mobile-container {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-  }
-}
-header .header-top {
-  display: flex;
-  justify-content: space-between;
 }
 header .search {
   flex: 1;
-  width: 100%;
+}
+@media screen and (max-width: 768px) {
+  header .search {
+    flex: none;
+    order: 3;
+    width: 100%;
+  }
 }
 header .search form {
   position: relative;
@@ -94,17 +95,16 @@ header .search button {
   right: 0;
   top: 0;
   width: 3.2rem;
-  width: 3.2rem;
 }
 header .search button:disabled {
   cursor: default;
 }
+header .search button:disabled #icon-search {
+  fill: rgba(204, 204, 204, 0.4);
+}
 header .search #icon-search {
   height: 1em;
   width: 1em;
-}
-header .search button:disabled #icon-search {
-  fill: rgba(204, 204, 204, 0.4);
 }
 header .phone {
   font-size: 1.8rem;
@@ -123,12 +123,13 @@ header .phone #icon-phone {
 }
 header .phone #icon-phone {
   height: 1.1em;
+  margin-right: 0.2rem;
   transition: all 0.3s;
   width: 1.1em;
 }
 header .timetable {
   display: inline-block;
-  margin-left: 24px;
+  margin-left: 2.4rem;
   position: relative;
   text-align: left;
 }
@@ -155,9 +156,6 @@ header .timetable .timetable-text p {
 header .timetable .timetable-text strong {
   display: inline-block;
   min-width: 6.3rem;
-}
-header .basket {
-  white-space: nowrap;
 }
 header .basket .basket-link {
   display: block;
@@ -187,8 +185,8 @@ header .basket .basket-items {
 }
 header .basket .basket-contents {
   display: inline-block;
-  vertical-align: middle;
   margin-left: 1.2rem;
+  vertical-align: middle;
 }
 @media screen and (max-width: 425px) {
   header .basket .basket-contents {

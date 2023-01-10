@@ -49,37 +49,39 @@ p {
 /* Header */
 
 header {
-  .header-desktop-container {
+  .logo {
+    @media screen and (max-width: $tablet-width) {
+      img {
+        height: 23px;
+        width: 120px;
+      }
+    }
+  }
+
+  .header-container {
     align-items: center;
     display: flex;
     gap: 2rem;
     min-width: 1000px;
-    padding: 3rem 2rem;
+    padding-bottom: 2rem;
+    padding-top: 2rem;
 
     @media screen and (max-width: $tablet-width) {
-      display: none;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      min-width: 0;
+      padding: 1.5rem;
     }
-  }
-
-  .header-mobile-container {
-    display: none;
-    padding: 1.5rem;
-
-    @media screen and (max-width: $tablet-width) {
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-    }
-  }
-
-  .header-top {
-    display: flex;
-    justify-content: space-between;
   }
 
   .search {
     flex: 1;
-    width: 100%;
+
+    @media screen and (max-width: $tablet-width) {
+      flex: none;
+      order: 3;
+      width: 100%;
+    }
 
     form {
       position: relative;
@@ -107,20 +109,19 @@ header {
       right: 0;
       top: 0;
       width: 3.2rem;
-      width: 3.2rem;
 
       &:disabled {
         cursor: default;
+
+        #icon-search {
+          fill: rgba(204, 204, 204, 0.4);
+        }
       }
     }
 
     #icon-search {
       height: 1em;
       width: 1em;
-    }
-
-    button:disabled #icon-search {
-      fill: rgba(204, 204, 204, 0.4);
     }
   }
 
@@ -142,6 +143,7 @@ header {
 
     #icon-phone {
       height: 1.1em;
+      margin-right: 0.2rem;
       transition: all 0.3s;
       width: 1.1em;
     }
@@ -149,7 +151,7 @@ header {
 
   .timetable {
     display: inline-block;
-    margin-left: 24px;
+    margin-left: 2.4rem;
     position: relative;
     text-align: left;
 
@@ -184,8 +186,6 @@ header {
   }
 
   .basket {
-    white-space: nowrap;
-
     .basket-link {
       display: block;
     }
@@ -218,8 +218,8 @@ header {
 
     .basket-contents {
       display: inline-block;
-      vertical-align: middle;
       margin-left: 1.2rem;
+      vertical-align: middle;
 
       @media screen and (max-width: $mobile-l-width) {
         display: none;

@@ -1,29 +1,22 @@
-// /* Grab references to the DOM elements */
+/* Grab references to the DOM elements */
 
-// const inputSearch = [...document.querySelectorAll('.search input')];
+const inputSearch = document.querySelector('.search input');
+const buttonSearch = document.querySelector('.search button');
 
-// /* Define constants */
+/* Define constants */
 
-// /* Define classes */
+/* Define classes */
 
-// /* Define functions */
+/* Define functions */
 
-// const handleSearch = (e, input, button) => {
-//   input.value = e.target.value;
+const handleSearch = () => {
+  if (inputSearch.value) {
+    buttonSearch.disabled = false;
+  } else {
+    buttonSearch.disabled = true;
+  }
+};
 
-//   if (input.value) {
-//     button.disabled = false;
-//   } else {
-//     button.disabled = true;
-//   }
-// };
+/* Program implementation */
 
-// /* Program implementation */
-
-// inputSearch.forEach((el) => {
-//   const button = el.parentNode.querySelector('button');
-
-//   el.addEventListener('input', (e) => {
-//     inputSearch.forEach((el) => handleSearch(e, el, button));
-//   });
-// });
+inputSearch.addEventListener('input', handleSearch);

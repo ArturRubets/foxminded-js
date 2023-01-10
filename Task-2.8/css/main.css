@@ -23,6 +23,15 @@ input {
   padding: 0;
 }
 
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
 a {
   color: #333;
   text-decoration: none;
@@ -40,25 +49,31 @@ p {
 }
 
 /* Header */
+header {
+  min-width: 1000px;
+}
+@media screen and (max-width: 768px) {
+  header {
+    min-width: 0;
+  }
+}
 @media screen and (max-width: 768px) {
   header .logo img {
     height: 23px;
     width: 120px;
   }
 }
-header .header-container {
+header .header-top-container {
   align-items: center;
   display: flex;
   gap: 2rem;
-  min-width: 1000px;
   padding-bottom: 2rem;
   padding-top: 2rem;
 }
 @media screen and (max-width: 768px) {
-  header .header-container {
+  header .header-top-container {
     flex-wrap: wrap;
     justify-content: space-between;
-    min-width: 0;
     padding: 1.5rem;
   }
 }
@@ -203,6 +218,39 @@ header .basket .basket-title {
   font-weight: bold;
   line-height: 1;
   margin-bottom: 0.4rem;
+}
+header .header-bottom {
+  background-color: black;
+  color: white;
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+@media screen and (max-width: 768px) {
+  header .header-bottom {
+    font-size: 1.4rem;
+  }
+}
+header .header-bottom-container {
+  padding: 0;
+}
+header .header-bottom-container ul {
+  display: flex;
+  overflow-y: auto;
+}
+header .header-bottom-container li {
+  text-align: center;
+}
+@media screen and (max-width: 768px) {
+  header .header-bottom-container li {
+    flex: 1;
+  }
+}
+header .header-bottom-container a {
+  color: inherit;
+  display: block;
+  line-height: 4rem;
+  padding: 0 2.5rem;
+  white-space: nowrap;
 }
 
 /*# sourceMappingURL=main.css.map */

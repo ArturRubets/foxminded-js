@@ -48,16 +48,18 @@ p {
   width: 100%;
 }
 
-/* Header section */
-header {
+header,
+footer {
   min-width: 1000px;
 }
 @media screen and (max-width: 768px) {
-  header {
+  header,
+footer {
     min-width: 0;
   }
 }
 
+/* Header section */
 @media screen and (max-width: 768px) {
   .header-top .logo img {
     height: 23px;
@@ -260,6 +262,65 @@ header {
   font-size: 2rem;
   font-weight: bold;
   text-align: center;
+}
+
+/* Footer section */
+footer {
+  background: #171717;
+  color: #efefef;
+}
+footer .container {
+  display: flex;
+  gap: 2rem;
+  justify-content: space-between;
+  padding-bottom: 3rem;
+  padding-top: 3rem;
+}
+@media screen and (max-width: 768px) {
+  footer .container {
+    align-items: center;
+    flex-direction: column;
+  }
+  footer .container :nth-child(1) {
+    order: 2;
+  }
+  footer .container :nth-child(2) {
+    order: 1;
+  }
+}
+footer .footer-logo {
+  margin-bottom: 2.5rem;
+}
+@media screen and (max-width: 768px) {
+  footer .footer-logo {
+    display: none;
+  }
+}
+footer .footer-copyright {
+  font-size: 1.2rem;
+  line-height: 1.6rem;
+  margin-bottom: 1.5rem;
+}
+footer .heading {
+  color: #ff671e;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+footer .contacts-item {
+  font-size: 1.3rem;
+  margin-bottom: 1.1rem;
+}
+footer .icon {
+  fill: #efefef;
+  height: 1.6rem;
+  margin-right: 0.8rem;
+  opacity: 0.6;
+  vertical-align: middle;
+  width: 1.6rem;
+}
+footer .link {
+  color: #efefef;
+  vertical-align: middle;
 }
 
 /*# sourceMappingURL=main.css.map */

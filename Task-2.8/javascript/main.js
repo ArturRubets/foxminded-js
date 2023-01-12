@@ -20,3 +20,19 @@ const handleSearch = () => {
 /* Program implementation */
 
 inputSearch.addEventListener('input', handleSearch);
+
+const flickity = new Flickity('.carousel', {
+  groupCells: true,
+  cellAlign: 'left',
+  contain: true,
+  pageDots: false,
+  adaptiveHeight: true,
+  arrowShape: {
+    x0: 0,
+    x1: 60,
+    y1: 50,
+    x2: 60,
+    y2: 0,
+    x3: 40,
+  },
+});

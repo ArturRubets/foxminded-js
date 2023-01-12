@@ -42,6 +42,10 @@ li {
 a {
   color: #333;
   text-decoration: none;
+
+  &:hover {
+    color: #666;
+  }
 }
 
 p {
@@ -56,6 +60,7 @@ p {
 }
 
 header,
+main,
 footer {
   min-width: 1000px;
 
@@ -155,6 +160,10 @@ footer {
     a,
     #icon-phone {
       vertical-align: middle;
+    }
+
+    a {
+      color: inherit;
     }
 
     #icon-phone {
@@ -291,6 +300,10 @@ footer {
 
 /* Main section */
 
+main {
+  background-color: #fafafa;
+}
+
 .promo {
   .container {
     padding-bottom: 2rem;
@@ -302,6 +315,148 @@ footer {
     font-size: 2rem;
     font-weight: bold;
     text-align: center;
+  }
+
+  .catalog-content {
+    padding: 2rem 1rem 0;
+  }
+
+  .carousel {
+    background-color: transparent;
+    margin: 0;
+  }
+
+  .carousel-cell {
+    background: white;
+    border-radius: 4px;
+    border: 1px solid #f0f0f0;
+    height: auto;
+    max-width: 260px;
+    min-width: 120px;
+    width: 24%;
+
+    &::before {
+      display: none;
+    }
+  }
+
+  .flickity-button {
+    background: transparent;
+
+    @media screen and (max-width: $tablet-width) {
+      display: none;
+    }
+
+    &:hover {
+      background: transparent;
+    }
+  }
+
+  .flickity-prev-next-button.previous {
+    left: -3rem;
+  }
+
+  .flickity-prev-next-button.next {
+    right: -3rem;
+  }
+
+  .product-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .product-image {
+    margin: 0 auto 1.5rem;
+    padding: 1.5rem 1.5rem 0;
+    position: relative;
+
+    img {
+      height: auto;
+      max-height: 100%;
+      max-width: 100%;
+      width: auto;
+    }
+  }
+
+  .product-sticker {
+    bottom: 0;
+    color: white;
+    position: absolute;
+  }
+
+  .product-sticker-item {
+    $sticker-color: #ade1cb;
+    $height-shadow: 8px;
+    background-color: $sticker-color;
+    border-radius: 2px 2px 2px 0;
+    text-align: center;
+    width: 4rem;
+
+    &::before {
+      content: '';
+      border-color: transparent $sticker-color transparent transparent;
+      border-style: solid;
+      border-width: 0 $height-shadow $height-shadow 0;
+      height: 0;
+      left: 0;
+      position: absolute;
+      top: 100%;
+      width: 0;
+    }
+
+    &::after {
+      background: url('../images/shadow.svg') 0 0 no-repeat;
+      content: '';
+      height: $height-shadow;
+      left: 0;
+      position: absolute;
+      top: 100%;
+      width: $height-shadow;
+    }
+  }
+
+  .product-info {
+    padding: 0 1.5rem 1.5rem 1.5rem;
+  }
+
+  .product-code {
+    color: #acacac;
+    display: inline-block;
+    font-size: 1.1rem;
+    margin-bottom: 0.4rem;
+
+    @media screen and (max-width: $tablet-width) {
+      display: none;
+    }
+  }
+
+  .product-title {
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    display: -webkit-box;
+    font-size: 1.5rem;
+    height: 4.8em;
+    line-height: 1.2;
+    margin: 0 0 0.8rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    @media screen and (max-width: $tablet-width) {
+      font-size: 1.3rem;
+    }
+  }
+
+  .product-price {
+    color: black;
+    font-size: 1.5rem;
+    font-weight: bold;
+    line-height: 1.2;
+    margin-top: 0.9rem;
+
+    @media screen and (max-width: $tablet-width) {
+      font-size: 1.4rem;
+      margin-top: 0.4rem;
+    }
   }
 }
 

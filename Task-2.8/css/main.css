@@ -47,8 +47,13 @@ p {
 .container {
   margin: 0 auto;
   max-width: 1440px;
-  padding: 0 1.5rem;
+  padding: 0 2rem;
   width: 100%;
+}
+@media screen and (max-width: 768px) {
+  .container {
+    padding: 0 1.5rem;
+  }
 }
 
 header,
@@ -82,7 +87,8 @@ footer {
   .header-top .container {
     flex-wrap: wrap;
     justify-content: space-between;
-    padding: 1.5rem;
+    padding-bottom: 1.5rem;
+    padding-top: 1.5rem;
   }
 }
 .header-top .search {
@@ -265,90 +271,183 @@ main {
   background-color: #fafafa;
 }
 
-.promo .container {
-  padding-bottom: 2rem;
-  padding-top: 2rem;
+.banner,
+.catalog {
+  margin: 4rem 0;
 }
-.promo .catalog-title {
+.banner .carousel-cell,
+.catalog .carousel-cell {
+  background: white;
+  border-radius: 4px;
+  height: auto;
+}
+.banner .carousel-cell::before,
+.catalog .carousel-cell::before {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .banner {
+    margin: 0;
+  }
+  .banner .container {
+    padding: 0;
+  }
+}
+.banner .carousel-banners .carousel-cell {
+  width: 100%;
+}
+.banner .carousel-banners img {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+.banner .carousel-banners .flickity-page-dots {
+  bottom: 15px;
+}
+@media screen and (max-width: 768px) {
+  .banner .carousel-banners .flickity-page-dots {
+    bottom: 7px;
+  }
+}
+.banner .carousel-banners .flickity-page-dots .dot {
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.02);
+  opacity: 1;
+}
+@media screen and (max-width: 768px) {
+  .banner .carousel-banners .flickity-page-dots .dot {
+    height: 6px;
+    width: 6px;
+  }
+}
+.banner .carousel-banners .flickity-page-dots .dot.is-selected {
+  background: white;
+  border-color: rgba(0, 0, 0, 0.25);
+  box-shadow: none;
+  cursor: default;
+}
+.banner .carousel-banners .flickity-button {
+  background: transparent;
+  border-radius: 0;
+  height: 100%;
+  width: 60px;
+}
+@media screen and (max-width: 768px) {
+  .banner .carousel-banners .flickity-button {
+    display: none;
+  }
+}
+.banner .carousel-banners .flickity-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.15);
+  opacity: 1;
+}
+.banner .carousel-banners .flickity-button.next {
+  right: 0;
+}
+.banner .carousel-banners .flickity-button.next .flickity-button-icon {
+  left: 10%;
+}
+.banner .carousel-banners .flickity-button.previous {
+  left: 0;
+}
+.banner .carousel-banners .flickity-button.previous .flickity-button-icon {
+  left: 30%;
+}
+.banner .carousel-banners .flickity-button:hover .flickity-button-icon {
+  fill: white;
+  opacity: 1;
+}
+.banner .carousel-banners .flickity-button-icon {
+  fill: black;
+  opacity: 0.1;
+}
+
+@media screen and (max-width: 768px) {
+  .catalog {
+    margin: 2rem 0;
+  }
+}
+.catalog .catalog-title {
   color: #ff671e;
   font-size: 2rem;
   font-weight: bold;
   text-align: center;
+  margin-bottom: 2rem;
 }
-.promo .catalog-content {
-  padding: 2rem 1rem 0;
+.catalog .catalog-content {
+  padding: 0 1rem;
 }
-.promo .carousel {
-  background-color: transparent;
-  margin: 0;
+@media screen and (max-width: 768px) {
+  .catalog .catalog-content {
+    padding: 0;
+  }
 }
-.promo .carousel-cell {
-  background: white;
-  border-radius: 4px;
+.catalog .carousel-products .carousel-cell {
   border: 1px solid #f0f0f0;
-  height: auto;
   max-width: 260px;
   min-width: 120px;
   width: 24%;
 }
-.promo .carousel-cell::before {
-  display: none;
-}
-.promo .flickity-button {
+.catalog .carousel-products .flickity-button {
   background: transparent;
 }
 @media screen and (max-width: 768px) {
-  .promo .flickity-button {
+  .catalog .carousel-products .flickity-button {
     display: none;
   }
 }
-.promo .flickity-button:hover {
+.catalog .carousel-products .flickity-button:hover {
   background: transparent;
 }
-.promo .flickity-prev-next-button.previous {
+.catalog .carousel-products .flickity-prev-next-button.previous {
   left: -3rem;
+  top: 30%;
 }
-.promo .flickity-prev-next-button.next {
+.catalog .carousel-products .flickity-prev-next-button.next {
   right: -3rem;
+  top: 30%;
 }
-.promo .product-container {
+.catalog .carousel-products .product-container {
   display: flex;
   flex-direction: column;
 }
-.promo .product-image {
+.catalog .carousel-products .product-image {
   margin: 0 auto 1.5rem;
   padding: 1.5rem 1.5rem 0;
   position: relative;
 }
-.promo .product-image img {
+.catalog .carousel-products .product-image img {
   height: auto;
   max-height: 100%;
   max-width: 100%;
   width: auto;
 }
-.promo .product-sticker {
+.catalog .carousel-products .product-sticker {
   bottom: 0;
   color: white;
   position: absolute;
 }
-.promo .product-sticker-item {
+.catalog .carousel-products .product-sticker-item {
   background-color: #ade1cb;
   border-radius: 2px 2px 2px 0;
   text-align: center;
   width: 4rem;
 }
-.promo .product-sticker-item::before {
-  content: "";
+.catalog .carousel-products .product-sticker-item::before {
   border-color: transparent #ade1cb transparent transparent;
   border-style: solid;
   border-width: 0 8px 8px 0;
+  content: "";
   height: 0;
   left: 0;
   position: absolute;
   top: 100%;
   width: 0;
 }
-.promo .product-sticker-item::after {
+.catalog .carousel-products .product-sticker-item::after {
   background: url("../images/shadow.svg") 0 0 no-repeat;
   content: "";
   height: 8px;
@@ -357,21 +456,21 @@ main {
   top: 100%;
   width: 8px;
 }
-.promo .product-info {
-  padding: 0 1.5rem 1.5rem 1.5rem;
+.catalog .carousel-products .product-info {
+  padding: 0 1.5rem 1.5rem;
 }
-.promo .product-code {
+.catalog .carousel-products .product-code {
   color: #acacac;
   display: inline-block;
   font-size: 1.1rem;
   margin-bottom: 0.4rem;
 }
 @media screen and (max-width: 768px) {
-  .promo .product-code {
+  .catalog .carousel-products .product-code {
     display: none;
   }
 }
-.promo .product-title {
+.catalog .carousel-products .product-title {
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 4;
   display: -webkit-box;
@@ -383,11 +482,11 @@ main {
   text-overflow: ellipsis;
 }
 @media screen and (max-width: 768px) {
-  .promo .product-title {
+  .catalog .carousel-products .product-title {
     font-size: 1.3rem;
   }
 }
-.promo .product-price {
+.catalog .carousel-products .product-price {
   color: black;
   font-size: 1.5rem;
   font-weight: bold;
@@ -395,7 +494,7 @@ main {
   margin-top: 0.9rem;
 }
 @media screen and (max-width: 768px) {
-  .promo .product-price {
+  .catalog .carousel-products .product-price {
     font-size: 1.4rem;
     margin-top: 0.4rem;
   }

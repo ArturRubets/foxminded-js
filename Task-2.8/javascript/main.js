@@ -37,7 +37,7 @@ const carouselBanners = new Flickity('.carousel-banners', {
 
 const carouselProducts = new Flickity('.carousel-products', {
   groupCells: 2,
-  cellAlign: 'right',
+  cellAlign: 'left',
   contain: true,
   pageDots: false,
   freeScroll: true,

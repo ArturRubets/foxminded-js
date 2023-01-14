@@ -307,7 +307,7 @@ main {
 }
 @media screen and (max-width: 768px) {
   .banner .carousel-banners .flickity-page-dots {
-    bottom: 7px;
+    bottom: 10px;
   }
 }
 .banner .carousel-banners .flickity-page-dots .dot {

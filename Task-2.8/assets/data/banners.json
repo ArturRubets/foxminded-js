@@ -1,0 +1,34 @@
+[
+  {
+    "url": "./assets/images/banners/airpods.webp",
+    "alt": "Airpods"
+  },
+  {
+    "url": "./assets/images/banners/imac.webp",
+    "alt": "Imac"
+  },
+  {
+    "url": "./assets/images/banners/ipad-mini.webp",
+    "alt": "Ipad-mini"
+  },
+  {
+    "url": "./assets/images/banners/ipad-pro.webp",
+    "alt": "Ipad-pro"
+  },
+  {
+    "url": "./assets/images/banners/ipad.webp",
+    "alt": "Ipad"
+  },
+  {
+    "url": "./assets/images/banners/iphone-13-pro.webp",
+    "alt": "Iphone-13-pro"
+  },
+  {
+    "url": "./assets/images/banners/iphone-13.webp",
+    "alt": "Iphone-13"
+  },
+  {
+    "url": "./assets/images/banners/macbook-pro.webp",
+    "alt": "Macbook-pro"
+  }
+]

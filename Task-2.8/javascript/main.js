@@ -7,6 +7,28 @@ const buttonSearch = document.querySelector('.search button');
 
 /* Define classes */
 
+class Banner {
+  constructor(url, alt) {
+    this.url = url;
+    this.alt = alt;
+  }
+}
+
+class BannerApi {
+  url = './assets/data/banners.json';
+
+  async fetchBanners() {
+    const response = await fetch(this.url);
+    if (response.ok) {
+      return response.json();
+    } else {
+      console.log(
+        `Request for ${this.url} failed with response ${response.status}: ${response.statusText}`
+      );
+    }
+  }
+}
+
 /* Define functions */
 
 const handleSearch = () => {
@@ -17,7 +39,36 @@ const handleSearch = () => {
   }
 };
 
+const createBannersElements = (banners) => {
+  const createBannerElement = (banner) => {
+    const div = document.createElement('div');
+    div.classList.add('carousel-cell');
+    div.innerHTML = `
+     <a href="javascript:void(0);">
+        <img
+          src="${banner.url}"
+          width="1440"
+          height="576"
+          alt="${banner.alt}"
+        />
+      </a>
+    `;
+    return div;
+  };
+  return banners.map(createBannerElement);
+};
+
+const displayBanners = (elements) => {
+  carouselBanners.append(elements);
+};
+
 /* Program implementation */
+
+const bannerClient = new BannerApi();
+bannerClient.fetchBanners().then((array) => {
+  const banners = array.map(({ url, alt }) => new Banner(url, alt));
+  displayBanners(createBannersElements(banners));
+});
 
 inputSearch.addEventListener('input', handleSearch);
 

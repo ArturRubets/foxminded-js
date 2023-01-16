@@ -154,7 +154,7 @@ const createProductsElements = (products) => {
         </div>
         <div class="product-price-container">
           <div class="product-price">${product.price} грн</div>
-          <button class="buy" type="submit">Купити</button>
+          <button class="button" type="submit">Купити</button>
         </div>
       </div>
     </div>

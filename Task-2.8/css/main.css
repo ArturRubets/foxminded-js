@@ -69,6 +69,26 @@ footer {
   }
 }
 
+.button {
+  background: #ff671e;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  font-size: 1.6rem;
+  padding: 0.4rem 0.7rem;
+}
+.button:hover {
+  opacity: 0.8;
+}
+.button:active {
+  opacity: 0.5;
+}
+@media screen and (max-width: 768px) {
+  .button {
+    font-size: 1.4rem;
+  }
+}
+
 /* Header section */
 @media screen and (max-width: 768px) {
   .header-top .logo img {
@@ -388,6 +408,11 @@ main {
     padding: 0;
   }
 }
+@media screen and (max-width: 768px) {
+  .catalog .catalog-content .button {
+    width: 100%;
+  }
+}
 .catalog .carousel-cell {
   border: 1px solid #f0f0f0;
   margin-left: 0.5rem;
@@ -510,25 +535,13 @@ main {
     margin-top: 0.4rem;
   }
 }
-.catalog .buy {
-  background: #ff671e;
-  border-radius: 4px;
-  color: white;
-  cursor: pointer;
-  font-size: 1.6rem;
-  padding: 0.4rem 0.7rem;
+.catalog .all-products {
+  padding: 4rem 0;
 }
-.catalog .buy:hover {
-  opacity: 0.8;
-}
-.catalog .buy:active {
-  opacity: 0.5;
-}
-@media screen and (max-width: 768px) {
-  .catalog .buy {
-    font-size: 1.4rem;
-    width: 100%;
-  }
+.catalog .all-products .button {
+  display: block;
+  margin: 0 auto;
+  padding: 0.6rem 6rem;
 }
 
 /* Footer section */

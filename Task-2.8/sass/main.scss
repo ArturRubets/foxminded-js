@@ -73,6 +73,27 @@ footer {
   }
 }
 
+.button {
+  background: $active-color;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  font-size: 1.6rem;
+  padding: 0.4rem 0.7rem;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &:active {
+    opacity: 0.5;
+  }
+
+  @media screen and (max-width: $tablet-width) {
+    font-size: 1.4rem;
+  }
+}
+
 /* Header section */
 
 .header-top {
@@ -434,6 +455,12 @@ main {
     @media screen and (max-width: $tablet-width) {
       padding: 0;
     }
+
+    .button {
+      @media screen and (max-width: $tablet-width) {
+        width: 100%;
+      }
+    }
   }
 
   .carousel-cell {
@@ -573,25 +600,13 @@ main {
     }
   }
 
-  .buy {
-    background: $active-color;
-    border-radius: 4px;
-    color: white;
-    cursor: pointer;
-    font-size: 1.6rem;
-    padding: 0.4rem 0.7rem;
+  .all-products {
+    padding: 4rem 0;
 
-    &:hover {
-      opacity: 0.8;
-    }
-
-    &:active {
-      opacity: 0.5;
-    }
-
-    @media screen and (max-width: $tablet-width) {
-      font-size: 1.4rem;
-      width: 100%;
+    .button {
+      display: block;
+      margin: 0 auto;
+      padding: 0.6rem 6rem;
     }
   }
 }

@@ -2,6 +2,7 @@
 
 const inputSearch = document.querySelector('.search input');
 const buttonSearch = document.querySelector('.search button');
+const divBasket = document.querySelector('.basket');
 
 /* Define constants */
 
@@ -19,6 +20,10 @@ class Banner {
 }
 
 class Product {
+  get id() {
+    return this.code;
+  }
+
   constructor(url, alt, hit, code, title, price) {
     this.url = url;
     this.alt = alt;
@@ -37,6 +42,97 @@ class Product {
       obj.title,
       obj.price
     );
+  }
+}
+
+class BasketItem {
+  get isEmpty() {
+    return this.quantity === 0;
+  }
+
+  get price() {
+    return this.product.price * this.quantity;
+  }
+
+  constructor(product, quantity = 1) {
+    this.product = product;
+    this.quantity = quantity;
+  }
+
+  increase(quantity = 1) {
+    this.quantity += quantity;
+  }
+
+  reduce(quantity = 1) {
+    this.quantity -= quantity;
+  }
+
+  identical(product) {
+    return this.product.id === product.id;
+  }
+}
+
+class Basket {
+  get isEmpty() {
+    if (this.basketItems.length) {
+      return false;
+    }
+    return true;
+  }
+
+  get price() {
+    if (this.isEmpty) {
+      return 0;
+    }
+    return this.basketItems
+      .map((value) => value.price)
+      .reduce((previousValue, currentValue) => previousValue + currentValue);
+  }
+
+  get quantity() {
+    return this.basketItems
+      .map((value) => value.quantity)
+      .reduce((previousValue, currentValue) => previousValue + currentValue);
+  }
+
+  constructor() {
+    this.basketItems = [];
+  }
+
+  add(product) {
+    if (!product) {
+      return;
+    }
+
+    const basketItem = this.find(product);
+    if (basketItem) {
+      basketItem.increase();
+    } else {
+      this.basketItems.push(new BasketItem(product));
+    }
+  }
+
+  remove(product) {
+    if (!product) {
+      return;
+    }
+
+    const basketItem = this.find(product);
+    if (!basketItem) {
+      return;
+    }
+
+    basketItem.reduce();
+
+    if (basketItem.isEmpty) {
+      this.basketItems = this.basketItems.filter(
+        (value) => value !== basketItem
+      );
+    }
+  }
+
+  find(product) {
+    return this.basketItems.find((value) => value.identical(product));
   }
 }
 
@@ -98,6 +194,19 @@ const handleSearch = () => {
   }
 };
 
+const handleButtonClick = (product) => {
+  basket.add(product);
+
+  const isLink = divBasket.innerHTML.includes('basket-link');
+  if (!basket.isEmpty && !isLink) {
+    const children = divBasket.innerHTML;
+    const newContent = `<a class="basket-link" href="javascript:void(0);">${children}</a>`;
+    divBasket.innerHTML = newContent;
+  }
+
+  divBasket.querySelector('.basket-items').innerText = basket.quantity;
+};
+
 const createBannersElements = (banners) => {
   const createBannerElement = (banner) => {
     const div = document.createElement('div');
@@ -154,11 +263,19 @@ const createProductsElements = (products) => {
         </div>
         <div class="product-price-container">
           <div class="product-price">${product.price} грн</div>
-          <button class="button" type="submit">Купити</button>
         </div>
       </div>
     </div>
     `;
+
+    const buttonBuy = document.createElement('button');
+    buttonBuy.classList.add('button', 'buy');
+    buttonBuy.setAttribute('type', 'submit');
+    buttonBuy.innerText = 'Купити';
+    buttonBuy.addEventListener('click', () => handleButtonClick(product));
+
+    div.querySelector('.product-price-container').append(buttonBuy);
+
     return div;
   };
   return products.map(createProductElement);
@@ -228,6 +345,8 @@ const carouselProducts = $('.carousel-products').slick({
     },
   ],
 });
+
+const basket = new Basket();
 
 const bannerClient = new BannerApi();
 const productClient = new ProductApi();

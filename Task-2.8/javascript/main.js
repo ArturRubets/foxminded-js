@@ -1,8 +1,9 @@
 /* Grab references to the DOM elements */
 
-const inputSearch = document.querySelector('.search input');
 const buttonSearch = document.querySelector('.search button');
 const divBasket = document.querySelector('.basket');
+const elementHTML = document.querySelector('html');
+const inputSearch = document.querySelector('.search input');
 
 /* Define constants */
 
@@ -59,20 +60,14 @@ class BasketItem {
     this.quantity = quantity;
   }
 
-  increase(quantity = 1) {
-    this.quantity += quantity;
-  }
-
-  reduce(quantity = 1) {
-    this.quantity -= quantity;
-  }
-
   identical(product) {
     return this.product.id === product.id;
   }
 }
 
 class Basket {
+  static basketKey = 'myBasketKey';
+
   get isEmpty() {
     if (this.basketItems.length) {
       return false;
@@ -90,48 +85,44 @@ class Basket {
   }
 
   get quantity() {
+    if (this.isEmpty) {
+      return 0;
+    }
     return this.basketItems
       .map((value) => value.quantity)
       .reduce((previousValue, currentValue) => previousValue + currentValue);
   }
 
   constructor() {
-    this.basketItems = [];
+    const savedBasketItems = JSON.parse(
+      localStorage.getItem(this.basketKey)
+    )?.map(
+      (value) =>
+        new BasketItem(Product.fromObject(value.product), value.quantity)
+    );
+    this.basketItems = savedBasketItems ? savedBasketItems : [];
   }
 
-  add(product) {
-    if (!product) {
-      return;
-    }
-
-    const basketItem = this.find(product);
-    if (basketItem) {
-      basketItem.increase();
-    } else {
-      this.basketItems.push(new BasketItem(product));
-    }
+  create(product) {
+    this.basketItems.push(new BasketItem(product));
+    localStorage.setItem(this.basketKey, JSON.stringify(this.basketItems));
   }
 
-  remove(product) {
-    if (!product) {
-      return;
-    }
+  delete(basketItem) {
+    this.basketItems = this.basketItems.filter((value) => value !== basketItem);
+    localStorage.setItem(this.basketKey, JSON.stringify(this.basketItems));
+  }
 
-    const basketItem = this.find(product);
-    if (!basketItem) {
-      return;
-    }
-
-    basketItem.reduce();
-
-    if (basketItem.isEmpty) {
-      this.basketItems = this.basketItems.filter(
-        (value) => value !== basketItem
-      );
-    }
+  update(basketItem, quantity) {
+    basketItem.quantity = quantity;
+    this.basketItems = this.basketItems.filter((value) => value.quantity > 0);
+    localStorage.setItem(this.basketKey, JSON.stringify(this.basketItems));
   }
 
   find(product) {
+    if (!product) {
+      return;
+    }
     return this.basketItems.find((value) => value.identical(product));
   }
 }
@@ -184,7 +175,208 @@ class ProductRepository {
   }
 }
 
+class BasketPopup {
+  constructor() {
+    this.divOverlay = document.querySelector('.overlay');
+    this.tbodyPopupItems = this.divOverlay.querySelector('.popup-items');
+    this.divPopupCloseButton = this.divOverlay.querySelector(
+      '.popup-close-button'
+    );
+    this.divCartBtnBack = this.divOverlay.querySelector('.cart-btnBack');
+    this.divBasketSummary = this.divOverlay.querySelector('.cart-summary-b');
+
+    this.divOverlay.addEventListener('click', (e) => {
+      if (e.target.classList.contains('overlay')) {
+        this.close();
+      }
+    });
+    this.divPopupCloseButton.addEventListener('click', () => {
+      this.close();
+    });
+    this.divCartBtnBack.addEventListener('click', () => {
+      this.close();
+    });
+  }
+
+  close() {
+    elementHTML.style.overflow = 'initial';
+    this.divOverlay.style.display = 'none';
+  }
+
+  createProductItem(basketItem) {
+    const tr = document.createElement('tr');
+    tr.classList.add('popup-card-item');
+    tr.innerHTML = `
+      <td>
+        <div class="cart-remove">
+              <svg
+                viewBox="0 0 64 64"
+                class="icon"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M9.846 64h44.309V19.692H9.846V64zm29.539-34.461h4.923v24.615h-4.923V29.539zm-9.847 0h4.924v24.615h-4.924V29.539zm-9.846 0h4.923v24.615h-4.923V29.539zM39.385 4.923V0h-14.77v4.923H4.923v9.847h54.154V4.923H39.385z"
+                ></path>
+              </svg>
+        </div>
+        <div class="cart-image">
+          <img
+            alt='${basketItem.product.title}'
+            width="69"
+            height="78"
+            src="${basketItem.product.url}"
+          />
+        </div>
+      </td>
+      <td class="cart-description">
+        <p>${basketItem.product.title}</p>
+        <p class='cart-price'>${numberWithSpaces(
+          basketItem.product.price
+        )} грн</p>
+      </td>
+      <td>
+        <div class="counter">
+          <button class="counter-minus">
+          <img class="icon" src="assets/images/minus.svg" alt="">
+          </button>
+          <input type="text" value="${numberWithSpaces(
+            basketItem.quantity
+          )}" class="counter-input" />
+          <button class="counter-plus">
+            <img class="icon" src="assets/images/plus.svg" alt="">
+          </button>
+        </div>
+      </td>
+      <td class="card-cost">${numberWithSpaces(basketItem.price)} грн</td>
+    `;
+
+    const inputCounter = tr.querySelector('.counter-input');
+    const divCartRemove = tr.querySelector('.cart-remove');
+    const btnCounterMinus = tr.querySelector('.counter-minus');
+    const btnCounterPlus = tr.querySelector('.counter-plus');
+    const tdCardCost = tr.querySelector('.card-cost');
+
+    const handleInputSymbol = (e) => {
+      if (!onlyNumberSymbol(e.key)) {
+        e.preventDefault();
+      }
+    };
+    const handleInput = () => {
+      const input = parseInt(inputCounter.value);
+      if (!input) {
+        return;
+      }
+      updateQuantity(input);
+      this.update();
+    };
+    const removeCardItem = () => {
+      tr.remove();
+      const btnBuy = carouselProducts[0].querySelector(
+        `.carousel-cell[data-id="${basketItem.product.id}"] button.buy`
+      );
+      btnBuy.innerText = 'Купити';
+    };
+    const updateQuantity = (quantity) => {
+      basket.update(basketItem, quantity);
+      inputCounter.value = quantity;
+      tdCardCost.textContent = `${numberWithSpaces(basketItem.price)} грн`;
+      this.divBasketSummary.textContent = `${numberWithSpaces(
+        basket.price
+      )} грн`;
+      this.update();
+    };
+
+    inputCounter.addEventListener('keypress', handleInputSymbol);
+    inputCounter.addEventListener('paste', handleInputSymbol);
+    inputCounter.addEventListener('change', handleInput);
+    inputCounter.addEventListener('keyup', ({ key }) => {
+      if (key === 'Enter') {
+        handleInput();
+        inputCounter.blur();
+      }
+    });
+    divCartRemove.addEventListener('click', () => {
+      basket.delete(basketItem);
+      removeCardItem();
+      updateQuantity(basketItem.quantity);
+    });
+    btnCounterMinus.addEventListener('click', () => {
+      updateQuantity(basketItem.quantity - 1);
+      if (!basket.find(basketItem.product)) {
+        removeCardItem();
+      }
+    });
+    btnCounterPlus.addEventListener('click', () => {
+      updateQuantity(basketItem.quantity + 1);
+    });
+
+    updateQuantity(basketItem.quantity);
+
+    return tr;
+  }
+
+  display() {
+    if (basket.isEmpty) {
+      return;
+    }
+
+    elementHTML.style.overflow = 'hidden';
+    this.divOverlay.style.display = 'block';
+
+    this.tbodyPopupItems.innerHTML = '';
+    basket.basketItems.map((value) => {
+      this.tbodyPopupItems.append(this.createProductItem(value));
+    });
+  }
+
+  update() {
+    (function toggleBasketLink() {
+      const isLink = divBasket.innerHTML.includes('basket-link');
+      if (!basket.isEmpty && !isLink) {
+        const children = divBasket.innerHTML;
+        const newContent = `<a class="basket-link" href="javascript:void(0);">${children}</a>`;
+        divBasket.innerHTML = newContent;
+      } else if (basket.isEmpty && isLink) {
+        const link = divBasket.firstChild;
+        divBasket.innerHTML = link.innerHTML;
+      }
+    })();
+
+    // After toggleBasketLink method .basket-items is updated.
+    // We find each update through querySelector.
+    divBasket.querySelector('.basket-items').textContent = basket.quantity;
+
+    divBasket.querySelector('.basket-value').textContent = `${numberWithSpaces(
+      basket.price
+    )} грн`;
+
+    if (basket.isEmpty) {
+      this.close();
+    }
+  }
+
+  create() {
+    this.update();
+    this.display();
+  }
+}
+
 /* Define functions */
+
+const onlyNumberSymbol = (symbol) => {
+  if (!(symbol >= 0 && symbol < 10)) {
+    return false;
+  }
+  return true;
+};
+
+const numberWithSpaces = (x) => {
+  const parts = x.toString().split('.');
+  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+  return parts.join('.');
+};
 
 const handleSearch = () => {
   if (inputSearch.value) {
@@ -194,20 +386,9 @@ const handleSearch = () => {
   }
 };
 
-const handleButtonClick = (product) => {
-  basket.add(product);
+const handleBasket = () => basketPopup.create();
 
-  const isLink = divBasket.innerHTML.includes('basket-link');
-  if (!basket.isEmpty && !isLink) {
-    const children = divBasket.innerHTML;
-    const newContent = `<a class="basket-link" href="javascript:void(0);">${children}</a>`;
-    divBasket.innerHTML = newContent;
-  }
-
-  divBasket.querySelector('.basket-items').innerText = basket.quantity;
-};
-
-const createBannersElements = (banners) => {
+const displayCarouselBanners = (banners) => {
   const createBannerElement = (banner) => {
     const div = document.createElement('div');
     div.classList.add('carousel-cell');
@@ -223,13 +404,21 @@ const createBannersElements = (banners) => {
     `;
     return div;
   };
-  return banners.map(createBannerElement);
+  carouselBanners.slick('slickAdd', banners.map(createBannerElement));
 };
 
-const createProductsElements = (products) => {
+const displayCarouselProducts = (products) => {
   const createProductElement = (product) => {
+    const handleProductButtonClick = (product) => {
+      if (!basket.find(product)) {
+        basket.create(product);
+      }
+      basketPopup.create();
+    };
+
     const div = document.createElement('div');
     div.classList.add('carousel-cell');
+    div.setAttribute('data-id', product.id);
     div.innerHTML = `
     <div class="product-container">
       <div class="product-image">
@@ -262,7 +451,9 @@ const createProductsElements = (products) => {
           </a>
         </div>
         <div class="product-price-container">
-          <div class="product-price">${product.price} грн</div>
+          <div class="product-price">${numberWithSpaces(
+            product.price
+          )} грн</div>
         </div>
       </div>
     </div>
@@ -271,22 +462,17 @@ const createProductsElements = (products) => {
     const buttonBuy = document.createElement('button');
     buttonBuy.classList.add('button', 'buy');
     buttonBuy.setAttribute('type', 'submit');
-    buttonBuy.innerText = 'Купити';
-    buttonBuy.addEventListener('click', () => handleButtonClick(product));
+    buttonBuy.innerText = basket.find(product) ? 'В кошику' : 'Купити';
+    buttonBuy.addEventListener('click', () => {
+      handleProductButtonClick(product);
+      buttonBuy.innerText = 'В кошику';
+    });
 
     div.querySelector('.product-price-container').append(buttonBuy);
 
     return div;
   };
-  return products.map(createProductElement);
-};
-
-const displayCarouselBanners = (elements) => {
-  carouselBanners.slick('slickAdd', elements);
-};
-
-const displayCarouselProducts = (elements) => {
-  carouselProducts.slick('slickAdd', elements);
+  carouselProducts.slick('slickAdd', products.map(createProductElement));
 };
 
 /* Program implementation */
@@ -307,7 +493,6 @@ const carouselBanners = $('.carousel-banners').slick({
     },
   ],
 });
-
 const carouselProducts = $('.carousel-products').slick({
   infinite: false,
   slidesToShow: 6,
@@ -347,22 +532,24 @@ const carouselProducts = $('.carousel-products').slick({
 });
 
 const basket = new Basket();
+const basketPopup = new BasketPopup();
 
 const bannerClient = new BannerApi();
 const productClient = new ProductApi();
 
 const productRepository = new ProductRepository();
 
+basketPopup.update();
+
 bannerClient.fetchBanners().then((array) => {
   const banners = array.map(Banner.fromObject);
-  displayCarouselBanners(createBannersElements(banners));
+  displayCarouselBanners(banners);
 });
 
 productClient.fetchProducts().then((array) => {
   productRepository.setProducts(array.map(Product.fromObject));
-  displayCarouselProducts(
-    createProductsElements(productRepository.getProductsFilterByHit())
-  );
+  displayCarouselProducts(productRepository.getProductsFilterByHit());
 });
 
 inputSearch.addEventListener('input', handleSearch);
+divBasket.addEventListener('click', handleBasket);

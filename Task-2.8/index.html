@@ -243,5 +243,59 @@
         </div>
       </div>
     </footer>
+    <div class="overlay">
+      <div class="popup-basket">
+        <div class="popup-title">Кошик</div>
+        <div class="popup-close-button">
+          <a href="javascript:void(0);">
+            <svg
+              viewBox="0 0 64 64"
+              class="icon"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M63.869 5.412L58.467.006 31.94 26.529 5.534.123.128 5.529l26.406 26.408L0 58.471l5.407 5.406L31.94 37.343l26.651 26.651L64 58.588 37.347 31.937z"
+              ></path>
+            </svg>
+          </a>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <td></td>
+              <td></td>
+              <td class="popup-header">Кількість</td>
+              <td class="popup-header popup-header-cost">Вартість</td>
+            </tr>
+          </thead>
+          <tbody class="popup-items"></tbody>
+          <tfoot>
+            <tr>
+              <td colspan="4">
+                <div class="cart-summary">
+                  <div class="cart-summary-h">Всього</div>
+                  <div class="cart-summary-b"></div>
+                </div>
+                <div class="cart-buttons">
+                  <div class="cart-btnBack">
+                    <img
+                      class="icon"
+                      src="assets/images/arrow-left.svg"
+                      alt=""
+                    />
+                    Повернутись до покупок
+                  </div>
+                  <div class="cart-btnOrder">
+                    <a href="javascript:void(0);"> Оформити замовлення </a>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
   </body>
 </html>

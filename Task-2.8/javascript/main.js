@@ -4,6 +4,7 @@ const buttonSearch = document.querySelector('.search button');
 const divBasket = document.querySelector('.basket');
 const elementHTML = document.querySelector('html');
 const inputSearch = document.querySelector('.search input');
+const divCatalog = document.querySelector('.catalog');
 
 /* Define constants */
 
@@ -325,8 +326,8 @@ class BasketPopup {
 
     const removeCardItem = () => {
       tr.remove();
-      const btnBuy = carouselProducts[0].querySelector(
-        `.carousel-cell[data-id="${basketItem.product.id}"] button.buy`
+      const btnBuy = divCatalog.querySelector(
+        `.cell[data-id="${basketItem.product.id}"] button.buy`
       );
       btnBuy.innerText = 'Купити';
     };
@@ -410,8 +411,8 @@ class BasketPopup {
 
     const removeCardItem = () => {
       div.remove();
-      const btnBuy = carouselProducts[0].querySelector(
-        `.carousel-cell[data-id="${basketItem.product.id}"] button.buy`
+      const btnBuy = divCatalog.querySelector(
+        `.cell[data-id="${basketItem.product.id}"] button.buy`
       );
       btnBuy.innerText = 'Купити';
     };
@@ -521,7 +522,7 @@ const handleBasket = () => basketPopup.create();
 const displayCarouselBanners = (banners) => {
   const createBannerElement = (banner) => {
     const div = document.createElement('div');
-    div.classList.add('carousel-cell');
+    div.classList.add('cell');
     div.innerHTML = `
      <a href="javascript:void(0);">
         <img
@@ -537,19 +538,18 @@ const displayCarouselBanners = (banners) => {
   carouselBanners.slick('slickAdd', banners.map(createBannerElement));
 };
 
-const displayCarouselProducts = (products) => {
-  const createProductElement = (product) => {
-    const handleProductButtonClick = (product) => {
-      if (!basket.find(product)) {
-        basket.create(product);
-      }
-      basketPopup.create();
-    };
+const createProductElement = (product) => {
+  const handleProductButtonClick = (product) => {
+    if (!basket.find(product)) {
+      basket.create(product);
+    }
+    basketPopup.create();
+  };
 
-    const div = document.createElement('div');
-    div.classList.add('carousel-cell');
-    div.setAttribute('data-id', product.id);
-    div.innerHTML = `
+  const div = document.createElement('div');
+  div.classList.add('cell');
+  div.setAttribute('data-id', product.id);
+  div.innerHTML = `
     <div class="product-container">
       <div class="product-image">
         <a href="javascript:void(0);">
@@ -589,19 +589,21 @@ const displayCarouselProducts = (products) => {
     </div>
     `;
 
-    const buttonBuy = document.createElement('button');
-    buttonBuy.classList.add('button', 'buy');
-    buttonBuy.setAttribute('type', 'submit');
-    buttonBuy.innerText = basket.find(product) ? 'В кошику' : 'Купити';
-    buttonBuy.addEventListener('click', () => {
-      handleProductButtonClick(product);
-      buttonBuy.innerText = 'В кошику';
-    });
+  const buttonBuy = document.createElement('button');
+  buttonBuy.classList.add('button', 'buy');
+  buttonBuy.setAttribute('type', 'submit');
+  buttonBuy.innerText = basket.find(product) ? 'В кошику' : 'Купити';
+  buttonBuy.addEventListener('click', () => {
+    handleProductButtonClick(product);
+    buttonBuy.innerText = 'В кошику';
+  });
 
-    div.querySelector('.product-price-container').append(buttonBuy);
+  div.querySelector('.product-price-container').append(buttonBuy);
 
-    return div;
-  };
+  return div;
+};
+
+const displayCarouselProducts = (products) => {
   carouselProducts.slick('slickAdd', products.map(createProductElement));
 };
 
@@ -676,7 +678,7 @@ bannerClient.fetchBanners().then((array) => {
   displayCarouselBanners(banners);
 });
 
-productClient.fetchProducts().then((array) => {
+const fetchProducts = productClient.fetchProducts().then((array) => {
   productRepository.setProducts(array.map(Product.fromObject));
   displayCarouselProducts(productRepository.getProductsFilterByHit());
 });

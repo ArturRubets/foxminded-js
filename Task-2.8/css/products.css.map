@@ -1,1 +1,1 @@
-{"version":3,"sourceRoot":"","sources":[],"names":[],"mappings":"","file":"products.css"}
+{"version":3,"sourceRoot":"","sources":["../sass/products.scss"],"names":[],"mappings":"AAAA;EACE;;;AAGF;EACE;EACA;EACA","file":"products.css"}

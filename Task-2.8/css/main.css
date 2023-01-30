@@ -302,14 +302,14 @@ main {
 .catalog {
   margin: 4rem 0;
 }
-.banner .carousel-cell,
-.catalog .carousel-cell {
+.banner .cell,
+.catalog .cell {
   background: white;
   border-radius: 4px;
   height: auto;
 }
-.banner .carousel-cell::before,
-.catalog .carousel-cell::before {
+.banner .cell::before,
+.catalog .cell::before {
   display: none;
 }
 
@@ -321,7 +321,7 @@ main {
     padding: 0;
   }
 }
-.banner .carousel-cell {
+.banner .cell {
   width: 100%;
 }
 .banner img {
@@ -418,7 +418,7 @@ main {
 .catalog .catalog-content .button {
   width: 100%;
 }
-.catalog .carousel-cell {
+.catalog .cell {
   border: 1px solid #f0f0f0;
   margin-left: 0.5rem;
   margin-right: 0.5rem;

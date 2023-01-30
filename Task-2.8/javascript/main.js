@@ -184,6 +184,14 @@ class BasketPopup {
     );
     this.divCartBtnBack = this.divOverlay.querySelector('.cart-btnBack');
     this.divBasketSummary = this.divOverlay.querySelector('.cart-summary-b');
+    this.popupBasketMobile = this.divOverlay.querySelector(
+      '.popup-basket-mobile'
+    );
+    this.divCloseBasketMobile = this.popupBasketMobile.querySelector('.close');
+    this.divPriceBasketMobile = this.popupBasketMobile.querySelector('.price');
+    this.divItemsBasketMobile = this.popupBasketMobile.querySelector('.items');
+    this.divCloseSecondBasketMobile =
+      this.popupBasketMobile.querySelector('.cart-btnBack');
 
     this.divOverlay.addEventListener('click', (e) => {
       if (e.target.classList.contains('overlay')) {
@@ -196,11 +204,68 @@ class BasketPopup {
     this.divCartBtnBack.addEventListener('click', () => {
       this.close();
     });
+    this.divCloseBasketMobile.addEventListener('click', () => {
+      this.close();
+    });
+    this.divCloseSecondBasketMobile.addEventListener('click', () => {
+      this.close();
+    });
+    window.addEventListener('resize', () => {
+      this.close();
+    });
   }
 
   close() {
     elementHTML.style.overflow = 'initial';
-    this.divOverlay.style.display = 'none';
+    this.divOverlay.classList.remove('visible');
+  }
+
+  setListenersToCounter(
+    basketItem,
+    inputCounter,
+    btnCounterMinus,
+    btnCounterPlus,
+    updateQuantity,
+    removeCardItem
+  ) {
+    const handleInputSymbol = (e) => {
+      if (!onlyNumberSymbol(e.key)) {
+        e.preventDefault();
+      }
+    };
+
+    const handleInput = () => {
+      const input = parseInt(inputCounter.value);
+      if (!input) {
+        return;
+      }
+      updateQuantity(input);
+      this.update();
+    };
+
+    inputCounter.addEventListener('keypress', handleInputSymbol);
+    inputCounter.addEventListener('paste', handleInputSymbol);
+    inputCounter.addEventListener('change', handleInput);
+    inputCounter.addEventListener('keyup', ({ key }) => {
+      if (key === 'Enter') {
+        handleInput();
+        inputCounter.blur();
+      }
+    });
+    inputCounter.addEventListener('blur', (e) => {
+      if (!inputCounter.value) {
+        inputCounter.value = basketItem.quantity;
+      }
+    });
+    btnCounterMinus.addEventListener('click', () => {
+      updateQuantity(basketItem.quantity - 1);
+      if (!basket.find(basketItem.product)) {
+        removeCardItem();
+      }
+    });
+    btnCounterPlus.addEventListener('click', () => {
+      updateQuantity(basketItem.quantity + 1);
+    });
   }
 
   createProductItem(basketItem) {
@@ -258,19 +323,6 @@ class BasketPopup {
     const btnCounterPlus = tr.querySelector('.counter-plus');
     const tdCardCost = tr.querySelector('.card-cost');
 
-    const handleInputSymbol = (e) => {
-      if (!onlyNumberSymbol(e.key)) {
-        e.preventDefault();
-      }
-    };
-    const handleInput = () => {
-      const input = parseInt(inputCounter.value);
-      if (!input) {
-        return;
-      }
-      updateQuantity(input);
-      this.update();
-    };
     const removeCardItem = () => {
       tr.remove();
       const btnBuy = carouselProducts[0].querySelector(
@@ -288,33 +340,108 @@ class BasketPopup {
       this.update();
     };
 
-    inputCounter.addEventListener('keypress', handleInputSymbol);
-    inputCounter.addEventListener('paste', handleInputSymbol);
-    inputCounter.addEventListener('change', handleInput);
-    inputCounter.addEventListener('keyup', ({ key }) => {
-      if (key === 'Enter') {
-        handleInput();
-        inputCounter.blur();
-      }
-    });
     divCartRemove.addEventListener('click', () => {
       basket.delete(basketItem);
       removeCardItem();
       updateQuantity(basketItem.quantity);
     });
-    btnCounterMinus.addEventListener('click', () => {
-      updateQuantity(basketItem.quantity - 1);
-      if (!basket.find(basketItem.product)) {
-        removeCardItem();
-      }
-    });
-    btnCounterPlus.addEventListener('click', () => {
-      updateQuantity(basketItem.quantity + 1);
-    });
+
+    this.setListenersToCounter(
+      basketItem,
+      inputCounter,
+      btnCounterMinus,
+      btnCounterPlus,
+      updateQuantity,
+      removeCardItem
+    );
 
     updateQuantity(basketItem.quantity);
 
     return tr;
+  }
+
+  createProductItemMobile(basketItem) {
+    const div = document.createElement('div');
+    div.classList.add('item');
+    div.innerHTML = `
+    <div class="item-image">
+      <img
+        class="icon"
+        src="${basketItem.product.url}"
+        alt="${basketItem.product.title}"
+      />
+    </div>
+    <div class="info">
+      <div class="title">
+        <a href="javascript:void(0);">${basketItem.product.title}</a>
+      </div>
+      <div class="item-price">${numberWithSpaces(
+        basketItem.product.price
+      )} грн</div>
+      <div class="buttons">
+        <div class="counter">
+          <button class="counter-minus">
+            <img class="icon" src="assets/images/minus.svg" alt="" />
+          </button>
+          <input class="counter-input" type="text" value="${numberWithSpaces(
+            basketItem.quantity
+          )}"/>
+          <button class="counter-plus">
+            <img class="icon" src="assets/images/plus.svg" alt="" />
+          </button>
+        </div>
+        <div class="remove-icon">
+          <button class="remove-button">
+            <img
+              class="remove-button-icon"
+              src="assets/images/icon-remove.svg"
+              alt=""
+            />
+          </button>
+        </div>
+      </div>
+    </div>
+    `;
+
+    const inputCounter = div.querySelector('.counter-input');
+    const btnCounterMinus = div.querySelector('.counter-minus');
+    const btnCounterPlus = div.querySelector('.counter-plus');
+    const divRemoveIcon = div.querySelector('.remove-icon');
+
+    const removeCardItem = () => {
+      div.remove();
+      const btnBuy = carouselProducts[0].querySelector(
+        `.carousel-cell[data-id="${basketItem.product.id}"] button.buy`
+      );
+      btnBuy.innerText = 'Купити';
+    };
+    const updateQuantity = (quantity) => {
+      basket.update(basketItem, quantity);
+      inputCounter.value = quantity;
+      this.divPriceBasketMobile.textContent = `${numberWithSpaces(
+        basket.price
+      )} грн`;
+      this.update();
+    };
+
+    divRemoveIcon.addEventListener('click', () => {
+      basket.delete(basketItem);
+      removeCardItem();
+      updateQuantity(basketItem.quantity);
+    });
+
+    this.setListenersToCounter(
+      basketItem,
+      inputCounter,
+      btnCounterMinus,
+      btnCounterPlus,
+      updateQuantity,
+      removeCardItem
+    );
+
+    updateQuantity(basketItem.quantity);
+
+    return div;
   }
 
   display() {
@@ -323,11 +450,14 @@ class BasketPopup {
     }
 
     elementHTML.style.overflow = 'hidden';
-    this.divOverlay.style.display = 'block';
+    this.divOverlay.classList.add('visible');
 
     this.tbodyPopupItems.innerHTML = '';
+    this.divItemsBasketMobile.innerHTML = '';
+
     basket.basketItems.map((value) => {
       this.tbodyPopupItems.append(this.createProductItem(value));
+      this.divItemsBasketMobile.append(this.createProductItemMobile(value));
     });
   }
 

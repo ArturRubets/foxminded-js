@@ -1,11 +1,100 @@
+/* Variables */
+/* General styles */
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
 main {
   background-color: initial;
+}
+
+.container {
+  display: flex;
+}
+
+/* Aside section */
+aside {
+  margin: 4rem 0;
+  max-width: 220px;
+}
+aside .title {
+  font-weight: bold;
+}
+aside .row {
+  display: flex;
+  margin: 0.6rem 0 1rem;
+}
+aside input[type=number] {
+  background: white;
+  border-radius: 2px;
+  border: 1px solid #acacac;
+  box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.15);
+  font-family: var(--font-family);
+  font-size: 1.4rem;
+  height: 22px;
+  outline: none;
+  padding: 0 4px;
+  transition: border-color 0.1s;
+  width: 100%;
+}
+aside i.separate {
+  background-color: #acacac;
+  flex-shrink: 0;
+  height: 1px;
+  margin: 1.1rem 0.2rem 0;
+  width: 1.2rem;
+}
+aside button {
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 1.2rem;
+  margin-left: 1rem;
+  padding: 0 1.3rem;
+}
+aside button:hover {
+  border-color: black;
+}
+aside button:active {
+  color: gray;
+}
+aside #slider-range {
+  background-color: rgba(255, 103, 30, 0.2);
+  border-radius: 2px;
+  border: none;
+  height: 4px;
+}
+aside #slider-range .ui-slider-range {
+  background-color: #ff671e;
+}
+aside #slider-range .ui-slider-handle {
+  background: white;
+  border-radius: 4px;
+  border: 1px solid #c5c5c5;
+  height: 12px;
+  outline: none;
+  width: 12px;
+}
+aside #slider-range .ui-slider-handle:hover, aside #slider-range .ui-slider-handle:active {
+  border-color: black;
+}
+
+/* Catalog section */
+.not-found {
+  font-size: 3rem;
+  text-align: center;
 }
 
 .catalog {
   display: grid;
   gap: 1rem;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  justify-items: center;
+  margin-left: 3rem;
+  width: 100%;
+}
+
+.cell {
+  max-width: 200px;
 }
 
 /*# sourceMappingURL=products.css.map */

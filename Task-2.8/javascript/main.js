@@ -159,6 +159,12 @@ class ProductApi {
 }
 
 class ProductRepository {
+  get maxPrice() {
+    return this.getProducts()
+      .map((value) => value.price)
+      .reduce((previousValue, currentValue) => previousValue + currentValue);
+  }
+
   constructor() {
     this.products = [];
   }
@@ -173,6 +179,12 @@ class ProductRepository {
 
   getProductsFilterByHit() {
     return this.getProducts().filter((value) => value.hit);
+  }
+
+  getProductsFilterByPrice(minValue, maxValue) {
+    return this.getProducts().filter(
+      (value) => value.price >= minValue && value.price <= maxValue
+    );
   }
 }
 
@@ -229,35 +241,26 @@ class BasketPopup {
     updateQuantity,
     removeCardItem
   ) {
-    const handleInputSymbol = (e) => {
-      if (!onlyNumberSymbol(e.key)) {
-        e.preventDefault();
+    const validate = (value) => {
+      if (!value || value < 0) {
+        return false;
       }
+
+      return true;
     };
 
     const handleInput = () => {
       const input = parseInt(inputCounter.value);
-      if (!input) {
+      if (!validate(input)) {
+        inputCounter.value = basketItem.quantity;
         return;
       }
+      inputCounter.blur();
       updateQuantity(input);
       this.update();
     };
 
-    inputCounter.addEventListener('keypress', handleInputSymbol);
-    inputCounter.addEventListener('paste', handleInputSymbol);
     inputCounter.addEventListener('change', handleInput);
-    inputCounter.addEventListener('keyup', ({ key }) => {
-      if (key === 'Enter') {
-        handleInput();
-        inputCounter.blur();
-      }
-    });
-    inputCounter.addEventListener('blur', (e) => {
-      if (!inputCounter.value) {
-        inputCounter.value = basketItem.quantity;
-      }
-    });
     btnCounterMinus.addEventListener('click', () => {
       updateQuantity(basketItem.quantity - 1);
       if (!basket.find(basketItem.product)) {
@@ -307,7 +310,7 @@ class BasketPopup {
           <button class="counter-minus">
           <img class="icon" src="assets/images/minus.svg" alt="">
           </button>
-          <input type="text" value="${numberWithSpaces(
+          <input type="number" value="${numberWithSpaces(
             basketItem.quantity
           )}" class="counter-input" />
           <button class="counter-plus">
@@ -495,13 +498,6 @@ class BasketPopup {
 }
 
 /* Define functions */
-
-const onlyNumberSymbol = (symbol) => {
-  if (!(symbol >= 0 && symbol < 10)) {
-    return false;
-  }
-  return true;
-};
 
 const numberWithSpaces = (x) => {
   const parts = x.toString().split('.');

@@ -3,8 +3,20 @@
 const inputFilterPriceMin = document.querySelector('.filter-price-min');
 const inputFilterPriceMax = document.querySelector('.filter-price-max');
 const btnFilterPriceSubmit = document.querySelector('.filter-price-submit');
+const spanSortingItems = document.querySelectorAll('.sorting-item');
 
 /* Define functions */
+
+const sortByPopularity = () =>
+  productRepository.getProducts().sort((a, b) => b.hit - a.hit);
+
+const sortByCheaper = () =>
+  productRepository.getProducts().sort((a, b) => a.price - b.price);
+
+const sortByName = () =>
+  productRepository
+    .getProducts()
+    .sort((a, b) => a.title.localeCompare(b.title));
 
 const displayCatalog = (products) => {
   divCatalog.innerHTML = '';
@@ -37,7 +49,27 @@ const submitPrice = () => {
   );
 };
 
-const main = () => {
+const handleSorting = (item) => {
+  if (item.classList.contains('active')) {
+    return;
+  }
+  spanSortingItems.forEach((value) => value.classList.remove('active'));
+  item.classList.add('active');
+  const sortedProducts = typeSorting[item.attributes['data-sort'].value]();
+  displayCatalog(sortedProducts);
+};
+
+/* Define constants */
+
+const typeSorting = {
+  1: sortByPopularity,
+  2: sortByCheaper,
+  3: sortByName,
+};
+
+/* Program implementation */
+
+fetchProducts.then(() => {
   displayCatalog(productRepository.getProducts());
 
   const maxPrice = productRepository.maxPrice;
@@ -72,8 +104,12 @@ const main = () => {
     }
   });
   btnFilterPriceSubmit.addEventListener('click', () => submitPrice(maxPrice));
-};
 
-/* Program implementation */
+  spanSortingItems.forEach((item) => {
+    item.addEventListener('click', () => handleSorting(item));
 
-fetchProducts.then(main);
+    if (item.classList.contains('active')) {
+      handleSorting(item);
+    }
+  });
+});

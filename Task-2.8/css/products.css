@@ -4,27 +4,124 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
 }
 
-main {
-  background-color: initial;
-}
-
 .container {
   display: flex;
 }
 
-/* Aside section */
-aside {
-  margin: 4rem 0;
+.not-found {
+  font-size: 3rem;
+  text-align: center;
+}
+
+/* Catalog section */
+.catalog-container {
+  flex-direction: column;
+  padding-bottom: 3rem;
+  padding-top: 3rem;
+}
+
+/* Catalog top section */
+.catalog-top {
+  margin-bottom: 2rem;
+}
+@media screen and (max-width: 768px) {
+  .catalog-top {
+    display: none;
+  }
+}
+
+.sorting {
+  align-items: center;
+  display: flex;
+  gap: 1rem;
+  justify-content: end;
+}
+
+.sorting-list {
+  border-radius: 4px;
+  border: 1px solid #f0f0f0;
+  overflow: hidden;
+  display: flex;
+}
+
+.sorting-item {
+  border-right: 1px solid #f0f0f0;
+  cursor: pointer;
+  font-size: 1.3rem;
+  padding: 0.6rem 1rem 0.7rem;
+}
+.sorting-item.active {
+  background-color: white;
+  cursor: default;
+}
+
+.catalog-top-mobile {
+  display: none;
+  margin: 0 0.5rem 2rem;
+}
+@media screen and (max-width: 768px) {
+  .catalog-top-mobile {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .mobile-controls {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+}
+.mobile-controls .filter {
+  align-items: center;
+  display: flex;
+  gap: 0.8rem;
+}
+.mobile-controls .mobile-filter-btn,
+.mobile-controls .sorting-btn {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+.mobile-controls .filter-caption {
+  font-size: 1.6rem;
+}
+.mobile-controls .icon-filter {
+  height: 1.6rem;
+  width: 1.6rem;
+}
+.mobile-controls .badge {
+  background: #72a805;
+  border-radius: 16px;
+  color: white;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  padding: 0 0.5rem;
+}
+
+/* Catalog bottom section */
+.catalog-bottom {
+  display: flex;
+}
+
+.aside-filters {
   max-width: 220px;
 }
-aside .title {
+@media screen and (max-width: 768px) {
+  .aside-filters {
+    display: none;
+  }
+}
+.aside-filters .title {
   font-weight: bold;
 }
-aside .row {
+.aside-filters .row {
   display: flex;
   margin: 0.6rem 0 1rem;
 }
-aside input[type=number] {
+.aside-filters input[type=number] {
   background: white;
   border-radius: 2px;
   border: 1px solid #acacac;
@@ -37,36 +134,36 @@ aside input[type=number] {
   transition: border-color 0.1s;
   width: 100%;
 }
-aside i.separate {
+.aside-filters i.separate {
   background-color: #acacac;
   flex-shrink: 0;
   height: 1px;
   margin: 1.1rem 0.2rem 0;
   width: 1.2rem;
 }
-aside button {
+.aside-filters .filter-price-submit {
   border-radius: 4px;
   border: 1px solid #ccc;
   font-size: 1.2rem;
   margin-left: 1rem;
   padding: 0 1.3rem;
 }
-aside button:hover {
+.aside-filters .filter-price-submit:hover {
   border-color: black;
 }
-aside button:active {
+.aside-filters .filter-price-submit:active {
   color: gray;
 }
-aside #slider-range {
+.aside-filters #slider-range {
   background-color: rgba(255, 103, 30, 0.2);
   border-radius: 2px;
   border: none;
   height: 4px;
 }
-aside #slider-range .ui-slider-range {
+.aside-filters #slider-range .ui-slider-range {
   background-color: #ff671e;
 }
-aside #slider-range .ui-slider-handle {
+.aside-filters #slider-range .ui-slider-handle {
   background: white;
   border-radius: 4px;
   border: 1px solid #c5c5c5;
@@ -74,14 +171,8 @@ aside #slider-range .ui-slider-handle {
   outline: none;
   width: 12px;
 }
-aside #slider-range .ui-slider-handle:hover, aside #slider-range .ui-slider-handle:active {
+.aside-filters #slider-range .ui-slider-handle:hover, .aside-filters #slider-range .ui-slider-handle:active {
   border-color: black;
-}
-
-/* Catalog section */
-.not-found {
-  font-size: 3rem;
-  text-align: center;
 }
 
 .catalog {
@@ -90,11 +181,19 @@ aside #slider-range .ui-slider-handle:hover, aside #slider-range .ui-slider-hand
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   justify-items: center;
   margin-left: 3rem;
+  padding: 0;
   width: 100%;
 }
-
-.cell {
-  max-width: 200px;
+@media screen and (max-width: 768px) {
+  .catalog {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    margin-left: 0;
+  }
+}
+@media screen and (max-width: 425px) {
+  .catalog {
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  }
 }
 
 /*# sourceMappingURL=products.css.map */

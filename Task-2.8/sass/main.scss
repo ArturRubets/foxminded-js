@@ -253,7 +253,6 @@ footer {
     .basket-icon {
       display: inline-block;
       position: relative;
-      transition: all 0.15s; // TODO: Потрібно при зміні кількості покупок?
     }
 
     #icon-basket-outline {
@@ -341,7 +340,7 @@ main {
 
 .banner,
 .catalog {
-  margin: 4rem 0;
+  padding: 4rem 0;
 
   .cell {
     background: white;
@@ -605,6 +604,10 @@ main {
       font-size: 1.4rem;
       margin-top: 0.4rem;
     }
+  }
+
+  .button.buy {
+    width: 100%;
   }
 
   .all-products {

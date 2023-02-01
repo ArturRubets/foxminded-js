@@ -28,6 +28,7 @@
       defer
     ></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <script src="javascript/jquery.ui.touch-punch.min.js"></script>
     <script src="javascript/main.js" defer></script>
     <script src="javascript/products.js" defer></script>
   </head>
@@ -134,20 +135,59 @@
       </div>
     </header>
     <main>
-      <div class="container">
-        <aside>
-          <div class="price-filter">
-            <div class="title">Ціна, грн</div>
-            <div class="row">
-              <input class="filter-price-min" type="number" value="0" />
-              <i class="separate"></i>
-              <input class="filter-price-max" type="number" value="0" />
-              <button class="filter-price-submit" type="submit">ОК</button>
+      <div class="catalog-container container">
+        <div class="catalog-top">
+          <div class="sorting">
+            <div class="sorting-title">Сортування:</div>
+            <div class="sorting-list">
+              <span class="sorting-item active" data-sort="1"
+                >за популярністю</span
+              >
+              <span class="sorting-item" data-sort="2">спочатку дешевше</span>
+              <span class="sorting-item" data-sort="3">за назвою</span>
             </div>
-            <div id="slider-range"></div>
           </div>
-        </aside>
-        <div class="catalog"></div>
+        </div>
+        <div class="catalog-top-mobile">
+          <div class="mobile-controls">
+            <div class="filter">
+              <button class="mobile-filter-btn">
+                <img
+                  class="icon icon-filter"
+                  src="assets/images/filter.svg"
+                  alt=""
+                />
+                <span class="filter-caption">Фільтр</span>
+              </button>
+              <span class="badge">1</span>
+            </div>
+            <div class="sorting">
+              <button class="sorting-btn">
+                <img
+                  class="icon icon-sorting"
+                  src="assets/images/sorting.svg"
+                  alt=""
+                />
+                <span class="sorting-caption">За популярністю</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="catalog-bottom">
+          <aside class="aside-filters">
+            <div class="price-filter">
+              <div class="title">Ціна, грн</div>
+              <div class="row">
+                <input class="filter-price-min" type="number" value="0" />
+                <i class="separate"></i>
+                <input class="filter-price-max" type="number" value="0" />
+                <button class="filter-price-submit" type="submit">ОК</button>
+              </div>
+              <div id="slider-range"></div>
+            </div>
+          </aside>
+          <div class="catalog"></div>
+        </div>
       </div>
     </main>
     <footer>

@@ -222,7 +222,6 @@ footer {
 .header-top .basket .basket-icon {
   display: inline-block;
   position: relative;
-  transition: all 0.15s;
 }
 .header-top .basket #icon-basket-outline {
   display: inline-block;
@@ -300,7 +299,7 @@ main {
 
 .banner,
 .catalog {
-  margin: 4rem 0;
+  padding: 4rem 0;
 }
 .banner .cell,
 .catalog .cell {
@@ -539,6 +538,9 @@ main {
     font-size: 1.4rem;
     margin-top: 0.4rem;
   }
+}
+.catalog .button.buy {
+  width: 100%;
 }
 .catalog .all-products {
   padding: 4rem 0;

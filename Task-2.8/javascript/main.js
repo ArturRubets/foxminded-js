@@ -6,8 +6,6 @@ const elementHTML = document.querySelector('html');
 const inputSearch = document.querySelector('.search input');
 const divCatalog = document.querySelector('.catalog');
 
-/* Define constants */
-
 /* Define classes */
 
 class Banner {

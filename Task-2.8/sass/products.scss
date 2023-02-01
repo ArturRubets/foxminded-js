@@ -1,7 +1,9 @@
 /* Variables */
 
-$active-color: #ff671e;
 $active-color-muted: rgba(255, 103, 30, 0.2);
+$active-color: #ff671e;
+$mobile-l-width: 425px;
+$tablet-width: 768px;
 
 /* General styles */
 
@@ -9,19 +11,121 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
 }
 
-main {
-  background-color: initial;
-}
-
 .container {
   display: flex;
 }
 
-/* Aside section */
+.not-found {
+  font-size: 3rem;
+  text-align: center;
+}
 
-aside {
-  margin: 4rem 0;
+/* Catalog section */
+
+.catalog-container {
+  flex-direction: column;
+  padding-bottom: 3rem;
+  padding-top: 3rem;
+}
+
+/* Catalog top section */
+
+.catalog-top {
+  margin-bottom: 2rem;
+
+  @media screen and (max-width: $tablet-width) {
+    display: none;
+  }
+}
+
+.sorting {
+  align-items: center;
+  display: flex;
+  gap: 1rem;
+  justify-content: end;
+}
+
+.sorting-list {
+  border-radius: 4px;
+  border: 1px solid #f0f0f0;
+  overflow: hidden;
+  display: flex;
+}
+
+.sorting-item {
+  border-right: 1px solid #f0f0f0;
+  cursor: pointer;
+  font-size: 1.3rem;
+  padding: 0.6rem 1rem 0.7rem;
+
+  &.active {
+    background-color: white;
+    cursor: default;
+  }
+}
+
+.catalog-top-mobile {
+  display: none;
+  margin: 0 0.5rem 2rem;
+
+  @media screen and (max-width: $tablet-width) {
+    display: block;
+  }
+}
+
+.mobile-controls {
+  @media screen and (max-width: $tablet-width) {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .filter {
+    align-items: center;
+    display: flex;
+    gap: 0.8rem;
+  }
+
+  .mobile-filter-btn,
+  .sorting-btn {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .filter-caption {
+    font-size: 1.6rem;
+  }
+
+  .icon-filter {
+    height: 1.6rem;
+    width: 1.6rem;
+  }
+
+  .badge {
+    background: #72a805;
+    border-radius: 16px;
+    color: white;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    padding: 0 0.5rem;
+  }
+}
+
+/* Catalog bottom section */
+
+.catalog-bottom {
+  display: flex;
+}
+
+.aside-filters {
   max-width: 220px;
+
+  @media screen and (max-width: $tablet-width) {
+    display: none;
+  }
 
   .title {
     font-weight: bold;
@@ -54,7 +158,7 @@ aside {
     width: 1.2rem;
   }
 
-  button {
+  .filter-price-submit {
     border-radius: 4px;
     border: 1px solid #ccc;
     font-size: 1.2rem;
@@ -96,22 +200,21 @@ aside {
   }
 }
 
-/* Catalog section */
-
-.not-found {
-  font-size: 3rem;
-  text-align: center;
-}
-
 .catalog {
   display: grid;
   gap: 1rem;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   justify-items: center;
   margin-left: 3rem;
+  padding: 0;
   width: 100%;
-}
 
-.cell {
-  max-width: 200px;
+  @media screen and (max-width: $tablet-width) {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    margin-left: 0;
+  }
+
+  @media screen and (max-width: $mobile-l-width) {
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  }
 }

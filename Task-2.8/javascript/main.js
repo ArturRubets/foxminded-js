@@ -188,14 +188,15 @@ class ProductRepository {
 
 class BasketPopup {
   constructor() {
-    this.divOverlay = document.querySelector('.overlay');
-    this.tbodyPopupItems = this.divOverlay.querySelector('.popup-items');
-    this.divPopupCloseButton = this.divOverlay.querySelector(
+    this.divBasketPopup = document.querySelector('.basket-popup');
+    this.tbodyPopupItems = this.divBasketPopup.querySelector('.popup-items');
+    this.divPopupCloseButton = this.divBasketPopup.querySelector(
       '.popup-close-button'
     );
-    this.divCartBtnBack = this.divOverlay.querySelector('.cart-btnBack');
-    this.divBasketSummary = this.divOverlay.querySelector('.cart-summary-b');
-    this.popupBasketMobile = this.divOverlay.querySelector(
+    this.divCartBtnBack = this.divBasketPopup.querySelector('.cart-btnBack');
+    this.divBasketSummary =
+      this.divBasketPopup.querySelector('.cart-summary-b');
+    this.popupBasketMobile = this.divBasketPopup.querySelector(
       '.popup-basket-mobile'
     );
     this.divCloseBasketMobile = this.popupBasketMobile.querySelector('.close');
@@ -204,7 +205,7 @@ class BasketPopup {
     this.divCloseSecondBasketMobile =
       this.popupBasketMobile.querySelector('.cart-btnBack');
 
-    this.divOverlay.addEventListener('click', (e) => {
+    this.divBasketPopup.addEventListener('click', (e) => {
       if (e.target.classList.contains('overlay')) {
         this.close();
       }
@@ -227,8 +228,7 @@ class BasketPopup {
   }
 
   close() {
-    elementHTML.style.overflow = 'initial';
-    this.divOverlay.classList.remove('visible');
+    closePopup(this.divBasketPopup);
   }
 
   setListenersToCounter(
@@ -451,8 +451,7 @@ class BasketPopup {
       return;
     }
 
-    elementHTML.style.overflow = 'hidden';
-    this.divOverlay.classList.add('visible');
+    openPopup(this.divBasketPopup);
 
     this.tbodyPopupItems.innerHTML = '';
     this.divItemsBasketMobile.innerHTML = '';
@@ -496,6 +495,16 @@ class BasketPopup {
 }
 
 /* Define functions */
+
+const openPopup = (elementPopup) => {
+  elementHTML.style.overflow = 'hidden';
+  elementPopup.classList.add('visible');
+};
+
+const closePopup = (elementPopup) => {
+  elementHTML.style.overflow = 'initial';
+  elementPopup.classList.remove('visible');
+};
 
 const numberWithSpaces = (x) => {
   const parts = x.toString().split('.');

@@ -159,7 +159,7 @@
                 />
                 <span class="filter-caption">Фільтр</span>
               </button>
-              <span class="badge">1</span>
+              <span class="badge"></span>
             </div>
             <div class="sorting">
               <button class="sorting-btn">
@@ -178,12 +178,20 @@
             <div class="price-filter">
               <div class="title">Ціна, грн</div>
               <div class="row">
-                <input class="filter-price-min" type="number" value="0" />
+                <input
+                  class="filter-price filter-price-min"
+                  type="number"
+                  value="0"
+                />
                 <i class="separate"></i>
-                <input class="filter-price-max" type="number" value="0" />
+                <input
+                  class="filter-price filter-price-max"
+                  type="number"
+                  value="0"
+                />
                 <button class="filter-price-submit" type="submit">ОК</button>
               </div>
-              <div id="slider-range"></div>
+              <div class="slider-range"></div>
             </div>
           </aside>
           <div class="catalog"></div>
@@ -290,78 +298,115 @@
         </div>
       </div>
     </footer>
-    <div class="overlay">
-      <div class="popup-basket">
-        <div class="popup-title">Кошик</div>
-        <div class="popup-close-button">
-          <a href="javascript:void(0);">
-            <svg
-              viewBox="0 0 64 64"
-              class="icon"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-                d="M63.869 5.412L58.467.006 31.94 26.529 5.534.123.128 5.529l26.406 26.408L0 58.471l5.407 5.406L31.94 37.343l26.651 26.651L64 58.588 37.347 31.937z"
-              ></path>
-            </svg>
-          </a>
-        </div>
-        <table>
-          <thead>
-            <tr>
-              <td></td>
-              <td></td>
-              <td class="popup-header">Кількість</td>
-              <td class="popup-header popup-header-cost">Вартість</td>
-            </tr>
-          </thead>
-          <tbody class="popup-items"></tbody>
-          <tfoot>
-            <tr>
-              <td colspan="4">
-                <div class="cart-summary">
-                  <div class="cart-summary-h">Всього</div>
-                  <div class="cart-summary-b"></div>
-                </div>
-                <div class="cart-buttons">
-                  <div class="cart-btnBack">
-                    <img
-                      class="icon"
-                      src="assets/images/arrow-left.svg"
-                      alt=""
-                    />
-                    Повернутись до покупок
-                  </div>
-                  <div class="cart-btnOrder">
-                    <a href="javascript:void(0);"> Оформити замовлення </a>
-                  </div>
-                </div>
-              </td>
-            </tr>
-          </tfoot>
-        </table>
-      </div>
-      <div class="popup-basket popup-basket-mobile">
-        <div class="header">
-          <div class="close">
-            <img class="icon" src="assets/images/arrow-left-m.svg" alt="" />
+    <div class="popup basket-popup">
+      <div class="overlay"></div>
+      <div class="basket-popup-container">
+        <div class="popup-basket">
+          <div class="popup-title">Кошик</div>
+          <div class="popup-close-button">
+            <a href="javascript:void(0);">
+              <svg
+                viewBox="0 0 64 64"
+                class="icon"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M63.869 5.412L58.467.006 31.94 26.529 5.534.123.128 5.529l26.406 26.408L0 58.471l5.407 5.406L31.94 37.343l26.651 26.651L64 58.588 37.347 31.937z"
+                ></path>
+              </svg>
+            </a>
           </div>
-          <div class="title">Кошик</div>
+          <table>
+            <thead>
+              <tr>
+                <td></td>
+                <td></td>
+                <td class="popup-header">Кількість</td>
+                <td class="popup-header popup-header-cost">Вартість</td>
+              </tr>
+            </thead>
+            <tbody class="popup-items"></tbody>
+            <tfoot>
+              <tr>
+                <td colspan="4">
+                  <div class="cart-summary">
+                    <div class="cart-summary-h">Всього</div>
+                    <div class="cart-summary-b"></div>
+                  </div>
+                  <div class="cart-buttons">
+                    <div class="cart-btnBack">
+                      <img
+                        class="icon"
+                        src="assets/images/arrow-left.svg"
+                        alt=""
+                      />
+                      Повернутись до покупок
+                    </div>
+                    <div class="cart-btnOrder">
+                      <a href="javascript:void(0);"> Оформити замовлення </a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
         </div>
-        <div class="body">
-          <div class="items"></div>
-          <div class="price"></div>
-          <div class="basket-buttons">
-            <div class="cart-btnOrder">
-              <a href="javascript:void(0);"> Оформити замовлення </a>
-            </div>
-            <div class="cart-btnBack">
+        <div class="popup-basket popup-basket-mobile">
+          <div class="header">
+            <div class="close">
               <img class="icon" src="assets/images/arrow-left-m.svg" alt="" />
-              Продовжити покупки
+            </div>
+            <div class="title">Кошик</div>
+          </div>
+          <div class="body">
+            <div class="items"></div>
+            <div class="price"></div>
+            <div class="basket-buttons">
+              <div class="cart-btnOrder">
+                <a href="javascript:void(0);"> Оформити замовлення </a>
+              </div>
+              <div class="cart-btnBack">
+                <img class="icon" src="assets/images/arrow-left-m.svg" alt="" />
+                Продовжити покупки
+              </div>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+    <div class="popup filter-popup">
+      <div class="overlay"></div>
+      <div class="filter-container">
+        <div class="navbar">
+          <img class="icon" src="assets/images/arrow-left-m.svg" alt="" />
+          <div class="title">Фільтр</div>
+          <div></div>
+        </div>
+        <div class="panel-body">
+          <div class="price-filter">
+            <div class="title">Ціна, грн</div>
+            <div class="row">
+              <input
+                class="filter-price filter-price-min"
+                type="number"
+                value="0"
+              />
+              <i class="separate"></i>
+              <input
+                class="filter-price filter-price-max"
+                type="number"
+                value="0"
+              />
+            </div>
+            <div class="slider-range"></div>
+          </div>
+        </div>
+        <div class="panel-footer">
+          <button class="button button-filter" type="submit">
+            Показати товари
+          </button>
         </div>
       </div>
     </div>

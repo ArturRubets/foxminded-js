@@ -158,9 +158,7 @@ class ProductApi {
 
 class ProductRepository {
   get maxPrice() {
-    return this.getProducts()
-      .map((value) => value.price)
-      .reduce((previousValue, currentValue) => previousValue + currentValue);
+    return Math.max(...this.getProducts().map((value) => value.price));
   }
 
   constructor() {

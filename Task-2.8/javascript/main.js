@@ -222,9 +222,7 @@ class BasketPopup {
     this.divCloseSecondBasketMobile.addEventListener('click', () => {
       this.close();
     });
-    window.addEventListener('resize', () => {
-      this.close();
-    });
+    resizeWindowCallback.push(() => this.close());
   }
 
   close() {
@@ -666,6 +664,8 @@ const carouselProducts = $('.carousel-products').slick({
   ],
 });
 
+const resizeWindowCallback = [];
+
 const basket = new Basket();
 const basketPopup = new BasketPopup();
 
@@ -688,3 +688,9 @@ const fetchProducts = productClient.fetchProducts().then((array) => {
 
 inputSearch.addEventListener('input', handleSearch);
 divBasket.addEventListener('click', handleBasket);
+
+window.addEventListener('resize', () => {
+  resizeWindowCallback.forEach((callback) => {
+    callback();
+  });
+});

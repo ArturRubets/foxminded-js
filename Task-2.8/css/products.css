@@ -280,4 +280,41 @@ input::-webkit-inner-spin-button {
   padding: 0 1rem;
 }
 
+/* Sort popup */
+.sort-popup .sort-container {
+  background-color: white;
+  border-radius: 8px 8px 0 0;
+  bottom: 0;
+  position: absolute;
+  width: 100%;
+}
+.sort-popup .top {
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 1.8rem;
+  padding: 1rem;
+  text-align: center;
+}
+.sort-popup .middle {
+  font-size: 1.6rem;
+}
+.sort-popup .item {
+  position: relative;
+}
+.sort-popup .item-container {
+  padding: 1rem 1.5rem;
+}
+.sort-popup .active {
+  color: green;
+}
+.sort-popup .active::before {
+  content: "";
+  background-color: green;
+  border-radius: 0 8px 8px 0;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 4px;
+}
+
 /*# sourceMappingURL=products.css.map */

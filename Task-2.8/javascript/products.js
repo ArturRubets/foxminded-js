@@ -26,29 +26,12 @@ const inputFilterPriceMaxFilterPopup = document.querySelector(
 const btnFilterPriceSubmitFilterPopup = document.querySelector(
   '.filter-popup .button-filter'
 );
-
 const badge = document.querySelector('.badge');
-
-const quantityFilters = (maxPrice) => {
-  let quantity = 0;
-  if (
-    parseInt(inputFilterPriceMaxFilterPopup.value) !== maxPrice ||
-    parseInt(inputFilterPriceMinFilterPopup.value) !== 0 ||
-    parseInt(inputFilterPriceMin.value) !== 0 ||
-    parseInt(inputFilterPriceMax.value) !== maxPrice
-  ) {
-    quantity++;
-  }
-
-  return quantity;
-};
-
-const changeBadgeFilter = (maxPrice) => {
-  const quantity = quantityFilters(maxPrice);
-  if (quantity) {
-    badge.textContent = quantity;
-  }
-};
+const btnSortingButtonMobile = document.querySelector('.sorting-btn');
+const divSortingPopup = document.querySelector('.sort-popup');
+const divSortPopupOverlay = document.querySelector('.sort-popup .overlay');
+const divSortItems = document.querySelectorAll('.sort-popup .item');
+const spanSortingCaption = document.querySelector('.sorting-caption');
 
 /* Define functions */
 
@@ -87,24 +70,73 @@ const validateInputPrice = (value, minValue, maxValue) => {
   return true;
 };
 
-const submitPrice = (maxPrice) => {
+const submitPrice = (isMobile, maxPrice) => {
+  const minValue = isMobile
+    ? parseInt(inputFilterPriceMinFilterPopup.value)
+    : parseInt(inputFilterPriceMin.value);
+  const maxValue = isMobile
+    ? parseInt(inputFilterPriceMaxFilterPopup.value)
+    : parseInt(inputFilterPriceMax.value);
+
   displayCatalog(
-    productRepository.getProductsFilterByPrice(
-      inputFilterPriceMin.value,
-      inputFilterPriceMax.value
-    )
+    productRepository.getProductsFilterByPrice(minValue, maxValue)
   );
-  changeBadgeFilter(maxPrice);
+  changeBadgeFilter(isMobile, maxPrice);
+};
+
+const setSortingCaption = (number) => {
+  spanSortingItems.forEach((item) => {
+    if (item.attributes['data-sort'].value == number) {
+      item.classList.add('active');
+    } else {
+      item.classList.remove('active');
+    }
+  });
+
+  divSortItems.forEach((item) => {
+    if (item.attributes['data-sort'].value == number) {
+      item.classList.add('active');
+    } else {
+      item.classList.remove('active');
+    }
+
+    spanSortingCaption.textContent = typeSortingCaption[number];
+  });
 };
 
 const handleSorting = (item) => {
   if (item.classList.contains('active')) {
     return;
   }
-  spanSortingItems.forEach((value) => value.classList.remove('active'));
-  item.classList.add('active');
+  setSortingCaption(item.attributes['data-sort'].value);
   const sortedProducts = typeSorting[item.attributes['data-sort'].value]();
   displayCatalog(sortedProducts);
+};
+
+const quantityFilters = (isMobile, maxPrice) => {
+  let quantity = 0;
+  if (isMobile) {
+    if (
+      parseInt(inputFilterPriceMaxFilterPopup.value) !== maxPrice ||
+      parseInt(inputFilterPriceMinFilterPopup.value) !== 0
+    ) {
+      quantity++;
+    }
+  } else {
+    if (
+      parseInt(inputFilterPriceMin.value) !== 0 ||
+      parseInt(inputFilterPriceMax.value) !== maxPrice
+    ) {
+      quantity++;
+    }
+  }
+
+  return quantity;
+};
+
+const changeBadgeFilter = (isMobile, maxPrice) => {
+  const quantity = quantityFilters(isMobile, maxPrice);
+  quantity ? (badge.textContent = quantity) : (badge.textContent = '');
 };
 
 /* Define constants */
@@ -113,6 +145,12 @@ const typeSorting = {
   1: sortByPopularity,
   2: sortByCheaper,
   3: sortByName,
+};
+
+const typeSortingCaption = {
+  1: 'За популярністю',
+  2: 'Спочатку дешевше',
+  3: 'За назвою',
 };
 
 /* Program implementation */
@@ -133,6 +171,9 @@ fetchProducts.then(() => {
 
       inputFilterPriceMinFilterPopup.value = ui.values[0];
       inputFilterPriceMaxFilterPopup.value = ui.values[1];
+
+      $divSliderRange.slider('values', 0, ui.values[0]);
+      $divSliderRange.slider('values', 1, ui.values[1]);
     },
   });
   inputFilterPriceMin.value = $divSliderRange.slider('values', 0);
@@ -141,44 +182,42 @@ fetchProducts.then(() => {
   inputFilterPriceMinFilterPopup.value = $divSliderRange.slider('values', 0);
   inputFilterPriceMaxFilterPopup.value = $divSliderRange.slider('values', 1);
 
-  inputFilterPriceMin.addEventListener('change', () => {
-    if (validateInputPrice(inputFilterPriceMin.value, 0, maxPrice)) {
-      $divSliderRange.slider('values', 0, inputFilterPriceMin.value);
-      inputFilterPriceMin.blur();
+  const changeValueInput = (input, value, isMinInput) => {
+    if (validateInputPrice(value, 0, maxPrice)) {
+      $divSliderRange.slider('values', isMinInput ? 0 : 1, value);
+      input.value = value;
+      input.blur();
     } else {
-      inputFilterPriceMin.value = 0;
+      input.value = isMinInput ? 0 : maxPrice;
     }
+  };
+
+  inputFilterPriceMin.addEventListener('change', () => {
+    const value = inputFilterPriceMin.value;
+    changeValueInput(inputFilterPriceMin, value, true);
+    changeValueInput(inputFilterPriceMinFilterPopup, value, true);
   });
   inputFilterPriceMinFilterPopup.addEventListener('change', () => {
-    if (validateInputPrice(inputFilterPriceMinFilterPopup.value, 0, maxPrice)) {
-      $divSliderRange.slider('values', 0, inputFilterPriceMinFilterPopup.value);
-      inputFilterPriceMinFilterPopup.blur();
-    } else {
-      inputFilterPriceMinFilterPopup.value = 0;
-    }
+    const value = inputFilterPriceMinFilterPopup.value;
+    changeValueInput(inputFilterPriceMin, value, true);
+    changeValueInput(inputFilterPriceMinFilterPopup, value, true);
   });
-
   inputFilterPriceMax.addEventListener('change', () => {
-    if (validateInputPrice(inputFilterPriceMax.value, 0, maxPrice)) {
-      $divSliderRange.slider('values', 1, inputFilterPriceMax.value);
-      inputFilterPriceMax.blur();
-    } else {
-      inputFilterPriceMax.value = maxPrice;
-    }
+    const value = inputFilterPriceMax.value;
+    changeValueInput(inputFilterPriceMax, value, false);
+    changeValueInput(inputFilterPriceMaxFilterPopup, value, false);
   });
-
   inputFilterPriceMaxFilterPopup.addEventListener('change', () => {
-    if (validateInputPrice(inputFilterPriceMaxFilterPopup.value, 0, maxPrice)) {
-      $divSliderRange.slider('values', 1, inputFilterPriceMaxFilterPopup.value);
-      inputFilterPriceMaxFilterPopup.blur();
-    } else {
-      inputFilterPriceMaxFilterPopup.value = maxPrice;
-    }
+    const value = inputFilterPriceMaxFilterPopup.value;
+    changeValueInput(inputFilterPriceMax, value, false);
+    changeValueInput(inputFilterPriceMaxFilterPopup, value, false);
   });
 
-  btnFilterPriceSubmit.addEventListener('click', () => submitPrice(maxPrice));
+  btnFilterPriceSubmit.addEventListener('click', () =>
+    submitPrice(false, maxPrice)
+  );
   btnFilterPriceSubmitFilterPopup.addEventListener('click', () => {
-    submitPrice(maxPrice);
+    submitPrice(true, maxPrice);
     closePopup(divFilterPopup);
   });
 
@@ -201,4 +240,25 @@ fetchProducts.then(() => {
   imgCloseFilterPopup.addEventListener('click', () => {
     closePopup(divFilterPopup);
   });
+
+  btnSortingButtonMobile.addEventListener('click', () => {
+    openPopup(divSortingPopup);
+  });
+
+  divSortPopupOverlay.addEventListener('click', () => {
+    closePopup(divSortingPopup);
+  });
+
+  divSortItems.forEach((item) => {
+    item.addEventListener('click', () => {
+      const sortNumber = item.attributes['data-sort'].value;
+      const sortedProducts = typeSorting[sortNumber]();
+      displayCatalog(sortedProducts);
+      setSortingCaption(sortNumber);
+      closePopup(divSortingPopup);
+    });
+  });
+
+  resizeWindowCallback.push(() => closePopup(divFilterPopup));
+  resizeWindowCallback.push(() => closePopup(divSortingPopup));
 });

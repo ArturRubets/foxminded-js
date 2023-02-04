@@ -108,6 +108,7 @@ input::-webkit-inner-spin-button {
     display: flex;
     align-items: center;
     gap: 0.8rem;
+    color: black;
   }
 
   .filter-caption {
@@ -325,6 +326,10 @@ input::-webkit-inner-spin-button {
 /* Sort popup */
 
 .sort-popup {
+  .popup-container {
+    height: initial;
+  }
+
   .sort-container {
     background-color: white;
     border-radius: 8px 8px 0 0;

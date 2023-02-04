@@ -315,6 +315,7 @@ main {
 @media screen and (max-width: 768px) {
   .banner {
     margin: 0;
+    padding: 0;
   }
   .banner .container {
     padding: 0;
@@ -632,6 +633,12 @@ footer .link {
   position: absolute;
 }
 
+.popup-container {
+  height: 100%;
+  overflow: scroll;
+  position: relative;
+}
+
 .basket-popup {
   /* Basket popup mobile */
 }
@@ -819,8 +826,8 @@ footer .link {
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
+  bottom: 0;
   display: none;
-  height: 100%;
   max-width: 440px;
   padding: 0;
   position: absolute;
@@ -855,6 +862,9 @@ footer .link {
 .basket-popup .popup-basket-mobile .header img.icon {
   height: 1.6rem;
   width: 1.6rem;
+}
+.basket-popup .popup-basket-mobile .body {
+  background-color: white;
 }
 .basket-popup .popup-basket-mobile .body .item {
   border-bottom: 1px solid rgba(128, 128, 128, 0.17);
@@ -912,10 +922,10 @@ footer .link {
   text-align: center;
 }
 .basket-popup .popup-basket-mobile .body .basket-buttons {
-  padding: 0 1rem;
+  padding: 0 1rem 1.5rem;
 }
 .basket-popup .popup-basket-mobile .body .cart-btnOrder {
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   text-align: center;
 }
 .basket-popup .popup-basket-mobile .body .cart-btnBack {

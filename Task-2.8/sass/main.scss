@@ -356,6 +356,7 @@ main {
 .banner {
   @media screen and (max-width: $tablet-width) {
     margin: 0;
+    padding: 0;
 
     .container {
       padding: 0;
@@ -714,6 +715,12 @@ footer {
   }
 }
 
+.popup-container {
+  height: 100%;
+  overflow: scroll;
+  position: relative;
+}
+
 .basket-popup {
   .basket-popup-container {
     padding: 10rem 0;
@@ -938,8 +945,8 @@ footer {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
+    bottom: 0;
     display: none;
-    height: 100%;
     max-width: 440px;
     padding: 0;
     position: absolute;
@@ -979,6 +986,8 @@ footer {
     }
 
     .body {
+      background-color: white;
+
       .item {
         border-bottom: 1px solid rgb(128 128 128 / 17%);
         display: flex;
@@ -1046,11 +1055,11 @@ footer {
       }
 
       .basket-buttons {
-        padding: 0 1rem;
+        padding: 0 1rem 1.5rem;
       }
 
       .cart-btnOrder {
-        margin-bottom: 1rem;
+        margin-bottom: 1.5rem;
         text-align: center;
       }
 

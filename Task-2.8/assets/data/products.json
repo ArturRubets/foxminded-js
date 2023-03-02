@@ -1,0 +1,82 @@
+[
+  {
+    "url": "./assets/images/products/product1.webp",
+    "alt": "Apple AirPods 2 with Wireless Charging Case (2019) (white) (MRXJ2)",
+    "hit": true,
+    "code": "MRXJ2",
+    "title": "Apple AirPods 2 with Wireless Charging Case (2019) (white) (MRXJ2)",
+    "price": 7824
+  },
+  {
+    "url": "./assets/images/products/product2.webp",
+    "alt": "Apple iPad 10,2\" (9 Gen, 2021) Wi-Fi 64Gb (space gray)",
+    "hit": true,
+    "code": "MK2K3",
+    "title": "Apple iPad 10,2\" (9 Gen, 2021) Wi-Fi 64Gb (space gray)",
+    "price": 16830
+  },
+  {
+    "url": "./assets/images/products/product3.webp",
+    "alt": "Apple MacBook Air 13,3\" (M1 8C CPU, 7C GPU, 2020) 8:256Gb (space gray) (MGN63)",
+    "hit": false,
+    "code": "MGN63",
+    "title": "Apple MacBook Air 13,3\" (M1 8C CPU, 7C GPU, 2020) 8:256Gb (space gray) (MGN63)",
+    "price": 41565
+  },
+  {
+    "url": "./assets/images/products/product4.webp",
+    "alt": "Apple Watch Nike SE (GPS) 40mm Aluminum Case (space gray) with Nike Sport Band (anthracite:black) (MYYF2)",
+    "hit": true,
+    "code": "MYYF2",
+    "title": "Apple Watch Nike SE (GPS) 40mm Aluminum Case (space gray) with Nike Sport Band (anthracite:black) (MYYF2)",
+    "price": 14874
+  },
+  {
+    "url": "./assets/images/products/product5.webp",
+    "alt": "Apple Watch SE (GPS) 40mm Aluminum Case (space gray) with Sport Band (black) (MYDP2)",
+    "hit": false,
+    "code": "MYDP2",
+    "title": "Apple Watch SE (GPS) 40mm Aluminum Case (space gray) with Sport Band (black) (MYDP2)",
+    "price": 13855
+  },
+  {
+    "url": "./assets/images/products/product6.webp",
+    "alt": "Apple Watch Series 7 (GPS) 41mm Aluminum Case (midnight) with Sport Band (midnight) (MKMX3)",
+    "hit": true,
+    "code": "MKMX3",
+    "title": "Apple Watch Series 7 (GPS) 41mm Aluminum Case (midnight) with Sport Band (midnight) (MKMX3)",
+    "price": 18134
+  },
+  {
+    "url": "./assets/images/products/product7.webp",
+    "alt": "Samsung Galaxy A32 (2021) 4:64Gb (black) (SM-A325FZKDSEK)",
+    "hit": false,
+    "code": "SM-A325FZKDSEK",
+    "title": "Samsung Galaxy A32 (2021) 4:64Gb (black) (SM-A325FZKDSEK)",
+    "price": 10099
+  },
+  {
+    "url": "./assets/images/products/product8.webp",
+    "alt": "Samsung Galaxy Buds Live (mystic black) (SM-R180NZKASEK)",
+    "hit": true,
+    "code": "SM-R180NZKASEK",
+    "title": "Samsung Galaxy Buds Live (mystic black) (SM-R180NZKASEK)",
+    "price": 5199
+  },
+  {
+    "url": "./assets/images/products/product9.webp",
+    "alt": "Samsung Galaxy Tab A7 Lite 8,7\" (2020) WiFi+4G 3:32Gb (gray) (SM-T225NZAASEK)",
+    "hit": true,
+    "code": "SM-T225NZAASEK",
+    "title": "Samsung Galaxy Tab A7 Lite 8,7\" (2020) WiFi+4G 3:32Gb (gray) (SM-T225NZAASEK)",
+    "price": 6599
+  },
+  {
+    "url": "./assets/images/products/product10.webp",
+    "alt": "Samsung Galaxy Tab S7 FE 12,4\" (2021) WiFi 4:64Gb (green) (SM-T733NLGASEK)",
+    "hit": false,
+    "code": "SM-T733NLGASEK",
+    "title": "Samsung Galaxy Tab S7 FE 12,4\" (2021) WiFi 4:64Gb (green) (SM-T733NLGASEK)",
+    "price": 18499
+  }
+]
